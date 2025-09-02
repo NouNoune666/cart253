@@ -26,11 +26,11 @@ function setup() {
 */
 function draw() {
     // Make the background black (specified as RGB)
-    background(100, 200, 150);
+    background(5, 200, 150);
 
     // Draw a pyramid
     // How many levels for the pyramid
-    const levels = 10;
+    const levels = 30;
     // Loop through every level (backwards)
     for (let level = levels; level > 0; level--) {
         // Draw this layer
