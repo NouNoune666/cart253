@@ -10,11 +10,11 @@
 
 function setup() {
     // Once at the beginning of the program
-    createCanvas(1280, 960);
+    createCanvas(640, 480);
 }
 
 function draw() {
     // Every frame
     background(219, 18, 244);
-    rect(100, 40, 480, 640);
+    rect(200, 80, 240, 320);
 }
