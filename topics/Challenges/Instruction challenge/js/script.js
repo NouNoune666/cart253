@@ -27,6 +27,8 @@ function draw() {
     drawLand();
     drawMountain();
     drawHouse();
+    drawSun();
+    drawBird();
 
 }
 
@@ -49,6 +51,7 @@ function drawMountain() {
 function drawHouse() {
    drawRoof();
    drawBodyHouse();
+   drawDoor();
 }
 
 function drawRoof() {
@@ -57,4 +60,25 @@ function drawRoof() {
     noStroke();
     triangle(440, 180, 510, 180, 475, 150);
     pop();
+}
+function drawBodyHouse() {
+    push();
+    fill("#b07d53");
+    noStroke();
+    rect(440, 180, 70, 50)
+    pop();
+}
+function drawDoor() {
+    push();
+    fill("#d62700");
+    noStroke();
+    rect(470, 210, 10, 20)
+    pop();
+}
+
+function drawBird() {
+    drawWingLeft1();
+    drawWingLeft2();
+    drawWingRight1();
+    drawWingRight2();
 }
