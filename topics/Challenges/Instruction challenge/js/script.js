@@ -24,5 +24,14 @@ function draw() {
     // Blue background (sky)
     background("#72bddb");
 
+    drawLand();
 
+}
+
+function drawLand() {
+    push();
+    fill("#8cdb72");
+    noStroke();
+    rect(0,230,600,170);
+    pop();
 }
