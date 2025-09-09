@@ -19,18 +19,16 @@ function setup() {
 }
 
 /**
- * Draws a house
+ * Draws a house and its immediate environment
  */
 function draw() {
-    // The sky
-    background(150, 200, 250);
-
+ 
+    drawSky();
     drawCloud();
-
     drawGround();
-
     drawHouse();
 }
+
 
 /** 
  * Draws a fluffy white cloud
@@ -67,13 +65,36 @@ function drawGround() {
  * Draws the house (all it's parts)
  */
 function drawHouse () {
+    drawHouseBody ();
+    drawHouseRoof ();
+    drawHouseWindow ();
+    drawHouseEntrance ();
+}
+
+/** 
+ * Draws blue sky
+ */
+function drawSky () {
+    // The sky
+    background(150, 200, 250);
+}
+
+/**
+ * Draws the house body
+ */
+function drawHouseBody () {
     // The main body of the house
     push();
     noStroke();
     fill(250, 250, 200);
     rect(200, 240, 280, 180);
     pop();
+}
 
+/**
+ * Draws house roof
+ */
+function drawHouseRoof () {
     // The roof
     push();
     noStroke();
@@ -81,7 +102,12 @@ function drawHouse () {
     fill("#dc143c");
     triangle(180, 240, 340, 120, 500, 240);
     pop();
+}
 
+/**
+ * Draws house window
+ */
+function drawHouseWindow () {
     // A window
     push();
     // You can also write colour names from the CSS standard in quotes
@@ -91,7 +117,12 @@ function drawHouse () {
     fill("blanchedalmond");
     rect(220, 260, 80, 80);
     pop();
+}
 
+/**
+ * Draws house Entrance
+ */
+function drawHouseEntrance () {
     // An entrace
 
     // The door
