@@ -28,7 +28,7 @@ function draw() {
     drawMountain();
     drawHouse();
     drawSun();
-    drawBird();
+    drawBirds();
 
 }
 
@@ -76,9 +76,44 @@ function drawDoor() {
     pop();
 }
 
-function drawBird() {
+function drawSun() {
+    push();
+    fill("yellow");
+    noStroke();
+    ellipse(300, 100, 75,);
+    pop();
+}
+function drawBirds() {
     drawWingLeft1();
-    drawWingLeft2();
     drawWingRight1();
+    drawWingLeft2();
     drawWingRight2();
+}
+
+function drawWingLeft1() {
+    push();
+    stroke("black");
+    line(50, 50, 60, 60)
+    pop();
+}
+
+function drawWingRight1() {
+    push();
+    stroke("black");
+    line(60, 60, 70, 50)
+    pop();
+}
+
+function drawWingLeft2() {
+    push();
+    stroke("black");
+    line(80, 80, 90, 90)
+    pop();
+}
+
+function drawWingRight2() {
+    push();
+    stroke("black");
+    line(90, 90, 100, 80)
+    pop();
 }
