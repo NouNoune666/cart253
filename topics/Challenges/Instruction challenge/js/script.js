@@ -1,24 +1,28 @@
 /**
- * Title of Project
- * Author Name
+ * Instructions challenge
+ * Amélie Barrette and Ray Hernaez
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * A fun in class landscape challenge!
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Creates the canvas
 */
 function setup() {
+    createCanvas (600,400);
+
 
 }
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws the landscape
 */
 function draw() {
+    // Blue background (sky)
+    background("#72bddb");
+
 
 }
