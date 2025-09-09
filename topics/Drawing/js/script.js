@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * A simple square canvas.
 */
 function setup() {
 createCanvas(640, 640,);
@@ -16,9 +16,12 @@ createCanvas(640, 640,);
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * A colorful design.
 */
 function draw() {
     background(0, 240, 0)
+
+    fill(255, 0, 0)
+    stroke(255)
     ellipse(320, 320, 400, 480)
 }
