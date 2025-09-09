@@ -29,6 +29,7 @@ function draw() {
     drawHouse();
     drawSun();
     drawBirds();
+    drawPig();
 
 }
 
@@ -115,5 +116,46 @@ function drawWingRight2() {
     push();
     stroke("black");
     line(90, 90, 100, 80)
+    pop();
+}
+
+function drawPig() {
+    drawPigHead();
+    drawPigBody();
+    drawPigLegs();
+}
+
+function drawPigHead() {
+    push();
+    fill("pink");
+    noStroke();
+    ellipse(350, 300, 30);
+    pop();
+}
+
+function drawPigBody() {
+    push();
+    fill("pink");
+    noStroke();
+    ellipse(290, 300, 90, 40);
+    pop();
+}
+
+function drawPigLegs() {
+    drawPigLegLeft();
+    drawPigLegRight();
+}
+
+function drawPigLegLeft() {
+    push();
+    stroke("pink");
+    line(310, 280, 310, 270)
+    pop();
+}
+
+function drawPigLegRight() {
+    push();
+    stroke("pink");
+    line(270, 280, 270, 270)
     pop();
 }
