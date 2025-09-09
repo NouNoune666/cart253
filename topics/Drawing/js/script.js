@@ -21,7 +21,15 @@ createCanvas(640, 640,);
 function draw() {
     background(0, 240, 0)
 
-    fill(255, 0, 0)
+    push()
+    fill(106, 212, 205)
     stroke(255)
     ellipse(320, 320, 400, 480)
+    pop()
+
+    push()
+    fill(106, 212, 205)
+    stroke(255)
+    rect(30, 20, 55, 55)
+    pop()
 }
