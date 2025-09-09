@@ -8,7 +8,7 @@
 "use strict";
 
 /**
- * A simple square canvas.
+ * Creates canvas.
 */
 function setup() {
 createCanvas(640, 640,);
@@ -16,7 +16,7 @@ createCanvas(640, 640,);
 
 
 /**
- * A colorful design.
+ * Creates colorful shapes
 */
 function draw() {
     background(0, 240, 0)
@@ -27,6 +27,7 @@ function draw() {
     ellipse(320, 320, 400, 480)
     pop()
 
+    // The rectangle
     push()
     fill(106, 212, 205)
     stroke(255)
