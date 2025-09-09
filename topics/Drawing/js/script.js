@@ -32,4 +32,16 @@ function draw() {
     stroke(255)
     rect(30, 20, 55, 55)
     pop()
+
+    push()
+    fill(106, 212, 205)
+    noStroke()
+    ellipse(400, 400, 140, 20)
+    pop ()
+
+    push()
+    fill(106, 212, 205)
+    noStroke()
+    ellipse(100, 200, 140, 30)
+    pop ()
 }
