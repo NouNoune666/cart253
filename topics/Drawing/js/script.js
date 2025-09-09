@@ -19,5 +19,6 @@ createCanvas(640, 640,);
  * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
 */
 function draw() {
-    background(2)
+    background(0, 240, 0)
+    ellipse(320, 320, 400, 480)
 }
