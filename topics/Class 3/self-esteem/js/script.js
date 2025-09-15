@@ -1,36 +1,38 @@
 /**
  * Self-Esteem
- * Pippin Barr
+ * Amélie Barrette (Nou Noune)
  * 
- * A portrait of Pippin's self-esteem on a sunny day.
+ * A portrait of Nou Noune's self-esteem on a sunny day.
  */
 
 "use strict";
 
-// Colour of the sky
-let skyRed = 150;
-let skyGreen = 180;
-let skyBlue = 250;
+// The sky
+
+    // Colour
+    let skyRed = 150;
+    let skyGreen = 180;
+    let skyBlue = 250;
 
 // The sun
 
-// Colour
-let sunRed = 255;
-let sunGreen = 255;
-let sunBlue = 0;
-// Position and size
-let sunX = 500;
-let sunY = 70;
-let sunSize = 100;
+    // Colour
+    let sunRed = 255;
+    let sunGreen = 255;
+    let sunBlue = 0;
+    // Position and size
+    let sunX = 500;
+    let sunY = 70;
+    let sunSize = 100;
 
 // My self-esteem
 
-// Greyscale shade
-let selfEsteemShade = 0;
-// Position and size
-let selfEsteemX = 320;
-let selfEsteemY = 320;
-let selfEsteemSize = 20;
+    // Greyscale shade
+    let selfEsteemShade = 0;
+    // Position and size
+    let selfEsteemX = 320;
+    let selfEsteemY = 320;
+    let selfEsteemSize = 20;
 
 /**
  * Create the canvas
