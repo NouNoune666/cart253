@@ -1,24 +1,29 @@
 /**
- * Title of Project
- * Author Name
+ * Introducing variables
+ * Nou Noune (Amélie Barrette)
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Learning about variables for class 3!
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Create a canvas
 */
 function setup() {
-
+    createCanvas(640,640);
 }
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws circle in the centre of the canva
 */
 function draw() {
+background(0)
 
+    //Draw the circle
+    push();
+    fill(255,255,0);
+    noStroke();
+    ellipse(320,320,100,100)
 }
