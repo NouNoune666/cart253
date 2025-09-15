@@ -11,7 +11,7 @@
  * Create a canvas
 */
 function setup() {
-    createCanvas(640,640);
+    createCanvas(400,480);
 }
 
 
@@ -25,5 +25,6 @@ background(0)
     push();
     fill(255,255,0);
     noStroke();
-    ellipse(320,320,100,100)
+    ellipse(width/2, height/2,100,100)
+    pop();
 }
