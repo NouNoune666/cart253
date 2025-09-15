@@ -11,7 +11,7 @@
  * Create a canvas
 */
 function setup() {
-    createCanvas(1000,10000);
+    createCanvas(400,400);
 }
 
 
@@ -25,6 +25,13 @@ background(0)
     push();
     fill(255,255,0);
     noStroke();
-    ellipse(width/2, height/2,100,100)
+    rect(width/2,height/2,100,100)
     pop();
+
+    //Creates texte
+    textSize(32);
+    fill('pink');
+    stroke(0);
+    strokeWeight(4);
+    text('hi', 50, 50);
 }
