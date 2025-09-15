@@ -1,24 +1,30 @@
 /**
- * Title of Project
- * Author Name
+ * Creating sick variables
+ * Amélie Barrette (Nou)
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * A project in which I create variables!
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Creates the canvas
 */
 function setup() {
-
+    createCanvas(480,480)
 }
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws a hole in a piece of cheese
 */
 function draw() {
+    // The cheese
+    background(255,255,0)
 
+    // The hole
+    push();
+    noStroke();
+    fill(0);
+    ellipse(140,175,180)
 }
