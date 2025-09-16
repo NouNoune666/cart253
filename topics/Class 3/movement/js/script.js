@@ -18,15 +18,15 @@ let bird = {
     min.Velocity:«{
         x: -3
         y: -2
-    }
+    },
     max.Velocity:«{
         x: 3
         y: 2
-    }
+    },
     acceleration:{
         x: 0.025,
         y: - 0.05
-    }
+    },
 };
 
 /**
