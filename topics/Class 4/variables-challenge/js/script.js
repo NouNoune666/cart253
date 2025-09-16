@@ -18,7 +18,8 @@ let mrFurious = {
     r: 255,
     g: 225,
     b: 225
-  }
+  },
+  rage:0 //In the range of 0...1
 };
 
 // Our friend the sky
@@ -44,6 +45,7 @@ let bird = {
 }
     
 
+
 /**
  * Create the canvas
  */
@@ -57,6 +59,8 @@ function setup() {
 function draw() {
   background(sky.fill.r, sky.fill.g, sky.fill.b);
 
+   // mrFurious.rage += 0.1
+   // const colorChange = map(mrFurious.rage, 0, 1, 255, 0)
   //Make Mr.furious more and more red!
     mrFurious.fill.g += -1
     mrFurious.fill.b += -1
@@ -65,17 +69,31 @@ function draw() {
     sky.fill.r += -1
     sky.fill.g += -1
     sky.fill.b += -1
-  
-  // Draw Mr. Furious as a coloured circle
+
+ // Move the bird
+    bird.x += 2
+
+ // Make Mr. Furious vibrate
+    mrFurious.x += random(-10,10);
+    mrFurious.x = constrain(mrFurious.x, 190, 210)
+
+    mrFurious.y += random(-10,10);
+    mrFurious.y = constrain(mrFurious.y, 190, 210)
+
+ // Draw Mr. Furious as a coloured circle
   push();
   noStroke();
   fill(mrFurious.fill.r, mrFurious.fill.g, mrFurious.fill.b);
   ellipse(mrFurious.x, mrFurious.y, mrFurious.size);
   pop();
 
-    // Draw the bird
+ // Draw the bird
   push();
   noStroke();   
   fill (bird.fill);
   ellipse(bird.x, bird.y, bird.size)
+  pop();
+
+
+
 }
