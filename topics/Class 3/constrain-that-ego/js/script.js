@@ -12,8 +12,8 @@ let ego = {
     x: 200,
     y: 200,
     size: 1,
-    minSize: 350,
-    maxSize: 0,
+    minSize: 0,
+    maxSize: 350,
     fill: 200
 };
 
