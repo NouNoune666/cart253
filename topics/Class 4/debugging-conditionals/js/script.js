@@ -30,9 +30,9 @@ const bug = {
     },
     // Fear of the mouse: moving more than this many pixels in one frame
     // will scare the bug
-    mouseMoveThreshold: 3,
+    mouseMoveThreshold: 10,
     // Living or dead?
-    alive: undefined
+    alive: true
 };
 
 /**
@@ -60,34 +60,33 @@ function draw() {
 function checkMouse() {
     // Don't react if the bug is already dead
     if (!bug.alive) {
-        return;
-
+        return; 
+     }
 
         // Check if the bug gets scared away
         // First get the total distance the mouse moved by calculating
         // the distance between its previous position and its current position
         const mouseMovedDistance = dist(pmouseX, pmouseY, mouseX, mouseY);
         // Now decide if the bug is scared based on its threshold
-        const bugScared = (mouseMovedDistance <= bug.mouseMoveThreshold);
+        const bugScared = (mouseMovedDistance > bug.mouseMoveThreshold);
         // If the bug is scared it runs away fast!
         if (bugScared) {
             bug.velocity.y = 15; // Run away!
-
-
-            // Now check if the user managed to click on the bug
-            // First find out if the mouse if over the bug's body 
-            const mouseToBugDistance = dist(mouseX, mouseY, bug.x, bug.y);
-            const mouseOverBug = mouseToBugDistance < bug.w / 2;
-            // Check if the mouse is pressed over the bug
-            // (Not perfect since it would be better if the click happed right then
-            // but this will do)
-            if (mouseOverBug || mouseIsPressed {
-                // Splat!
-                bug.alive = false;
-                bug.fill = bug.fills.dead;
-            }
         }
 
+     // Now check if the user managed to click on the bug
+    // First find out if the mouse if over the bug's body 
+    const mouseToBugDistance = dist(mouseX, mouseY, bug.x, bug.y);
+    const mouseOverBug = mouseToBugDistance < bug.w / 2;
+    // Check if the mouse is pressed over the bug
+    // (Not perfect since it would be better if the click happed right then
+    // but this will do)
+    if (mouseOverBug && mouseIsPressed) {
+        // Splat!
+        bug.alive = false;
+        bug.fill = bug.fills.dead;
+    }
+}
         function moveBug() {
             bug.x += bug.velocity.x;
             bug.y += bug.velocity.y;
