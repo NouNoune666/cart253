@@ -1,6 +1,6 @@
 /**
  * Lightswitch
- * Pippin Barr
+ * Nou Noune
  * 
  * An example of storing a boolean value! In this case whether a 
  * light is on or off
@@ -47,7 +47,7 @@ function checkLightswitch() {
  */
 function displayRoom() {
     if (lightswitch.on) {
-        background(255);
+        background(218, 112, 214);
     }
     else {
         background(0);
