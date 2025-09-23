@@ -1,6 +1,6 @@
 /**
  * Creature Loves Mouse
- * Pippin Barr
+ * Nou Noune
  * 
  * A creature that responds to the mouse by changing colour
  */
@@ -48,7 +48,11 @@ function draw() {
  * Responds to user input
  */
 function checkInput() {
-    // We'll need to figure this out
+    // Check if mouse button is pressed
+    if (mouseIsPressed) {
+        // If it is, the creature becomes happy!
+        creature.fill = creature.fills.happy;
+    }
 }
 
 /**
