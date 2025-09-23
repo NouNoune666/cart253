@@ -1,29 +1,32 @@
 /**
- * Self-portrait
+ * Title: Self portrait in code
  * Nou Noune
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Here's me!
  */
 
 "use strict";
 
-// Our sky (object)
-let sky = color(255)
+/** 
+ * Creates canvas.
+ */
 
-/**
- * Creates the canvas
-*/
-function setup() {<
-    createCanvas(150, 150);
+function setup() {
+    createCanvas(600, 500)
 }
 
-
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
-*/
+ * Creates my portrait.
+ */
 
 function draw() {
-    //Display the sky
-background(255);
+    background(0,30,60)
+
+    push()
+    fill("#1ED760")
+    noStroke()
+    rect(0, 300, 400, 100)
+    pop()
+
+
 }
