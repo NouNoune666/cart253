@@ -24,8 +24,13 @@ const target = {
   x: 200,
   y: 100,
   size: 50,
-  fill: "#b55fe3ff"
+  fills: {
+    normal:  "#b55fe3ff",
+    overlap:  "#5fe394ff",
+    notOverlap: "#b55fe3ff",
+  }
 };
+
 
 /**
  * Create the canvas
@@ -52,6 +57,8 @@ function draw() {
 
   // Step3 - Draw target
   drawTarget();
+
+  changeTarget();
 
 }
 
@@ -92,7 +99,7 @@ function drawPuck() {
 function drawTarget() {
   push();
   noStroke();
-  fill(target.fill);
+  fill(target.fills.normal);
   ellipse(target.x, target.y, target.size);
   pop();
 
@@ -141,5 +148,24 @@ function movePuck(){
   }
 
   
+
+}
+
+function changeTarget(){
+// Calculate distance between circles' centres
+  const d = dist(puck.x, puck.y, target.x, target.y);
+// Check if that distance is smaller than their two radii, 
+// because if it is, they are overlapping by the amazing
+// power of geometry!
+  const overlap = (d < puck.size/2 + target.size/2);
+
+  // Set fill based on whether they overlap
+  if (overlap) {
+    target.fills.normal = target.fills.overlap;
+   } 
+   else if (!overlap) {
+    target.fills.normal = target.fills.notOverlap;
+   }
+
 
 }
