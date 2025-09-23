@@ -23,8 +23,8 @@ const user = {
 const target = {
   x: 200,
   y: 100,
-  size: 75,
-  fill: "#000000"
+  size: 50,
+  fill: "#b55fe3ff"
 };
 
 /**
@@ -49,6 +49,9 @@ function draw() {
 
   // Step2 - Move puck
   movePuck()
+
+  // Step3 - Draw target
+  drawTarget();
 
 }
 
@@ -79,6 +82,18 @@ function drawPuck() {
   noStroke();
   fill(puck.fill);
   ellipse(puck.x, puck.y, puck.size);
+  pop();
+
+}
+
+/**
+ * Displays the target
+ */
+function drawTarget() {
+  push();
+  noStroke();
+  fill(target.fill);
+  ellipse(target.x, target.y, target.size);
   pop();
 
 }
