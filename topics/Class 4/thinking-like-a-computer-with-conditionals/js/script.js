@@ -40,7 +40,7 @@ function draw() {
  */
 function drawSquare() {
     push();
-    fill("#ff0000");
+    fill("#00ff99ff");
     noStroke();
     rectMode(CENTER);
     rect(width * 0.1666, height * 0.5, width * 0.33);
@@ -52,7 +52,7 @@ function drawSquare() {
  */
 function drawCircle() {
     push();
-    fill("#ff0000");
+    fill("#e749c2ff");
     noStroke();
     ellipse(width * 0.8333, height * 0.5, width * 0.33);
     pop();
@@ -63,7 +63,7 @@ function drawCircle() {
  */
 function drawX() {
     push();
-    stroke("#ff0000");
+    stroke("#1fd546ff");
     strokeWeight(10);
     line(width * 0.33, height * 0.25, width * 0.66, height * 0.75);
     line(width * 0.66, height * 0.25, width * 0.33, height * 0.75);
