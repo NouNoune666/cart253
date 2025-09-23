@@ -53,6 +53,15 @@ function checkInput() {
         // If it is, the creature becomes happy!
         creature.fill = creature.fills.happy;
     }
+    // Check if a key is pressed
+    else if (keyIsPressed) {
+        //If so, creature is angry
+        creature.fill = creature.fills.angry;
+    }
+    else {
+        // If the mouse not pressed, the creature is bored.
+        creature.fill = creature.fills.bored;
+    }
 }
 
 /**
