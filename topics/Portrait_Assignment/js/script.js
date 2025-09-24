@@ -12,9 +12,11 @@
  */
 function preload() {
     // Loads stars and smoke.
-    starImage = loadImage("assets/images/1_étoile.png");
+    starImage = loadImage("assets/images/star.png");
     smoke1Image = loadImage("assets/images/smoke_01.png");
     smoke2Image = loadImage("assets/images/smoke_02.png");
+    brigitteImage = loadImage("assets/images/brigitte.png");
+
 }
 
 /** 
@@ -29,6 +31,7 @@ function setup() {
 let starImage = undefined;
 let smoke1Image = undefined;
 let smoke2Image = undefined;
+let brigitteImage = undefined;
 
 
 /**
@@ -38,6 +41,8 @@ let smoke2Image = undefined;
 function draw() {
 
     drawSky();
+    drawBrigitte();
+    drawEyes();
     // drawGrass();
     // drawMountain();
     // drawHouse();
@@ -83,7 +88,6 @@ function draw() {
     image(starImage, width * 0.70, height * 0.10, 60, 60);
     image(starImage, width * 0.80, height * 0.30, 60, 60);
     image(starImage, width * 0.90, height * 0.10, 60, 60);
-    image(starImage, mouseX, mouseY, 60, 60);
     pop();
 
 
@@ -132,8 +136,24 @@ function draw() {
     pop();
 
 
-
 }
+// Draws the sky
 function drawSky() {
     background(0, 30, 60);
+}
+
+function drawEyes() {
+    push();
+    fill(mouseX, mouseY, mouseX + mouseY);
+    ellipse(mouseX + 20, mouseY + 20, mouseX, mouseY);
+    ellipse(410, 250, mouseX, mouseY);
+    pop();
+}
+
+// Draws Brigitte where the mouse is
+function drawBrigitte() {
+    push();
+    imageMode(CENTER);
+    image(brigitteImage, mouseX, mouseY, 60, 60);
+    pop()
 }
