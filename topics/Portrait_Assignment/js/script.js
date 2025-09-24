@@ -15,17 +15,21 @@ function setup() {
     createCanvas(600, 500)
 }
 
+// Why undefined???
 let starImage = undefined;
+let smoke1Image = undefined;
+let smoke2Image = undefined;
 
+/** 
+ * Creates canvas.
+ */
 function preload() {
-    // This is how you load an image!
-    // Note that loadImage() needs the PATH to your image inside your project
-    // Note that the path is CASE SENSITIVE
-    // Note that the filename is CASE SENSITIVE
-    // Note the QUOTE MARKS around the path
+    // Loads the images (stars and smoke)
     starImage = loadImage("assets/images/1_étoile.png");
-
+    smoke1Image = loadImage("assets/images/smoke_01.png");
+    smoke2Image = loadImage("assets/images/smoke_02.png");
 }
+
 /**
  * Creates my portrait.
  */
@@ -41,7 +45,24 @@ function draw() {
     rect(0, height * 0.85, width, height * 0.25);
     pop();
 
-    // Draws the stars
+    // Places image of the smoke (lines)
+    push();
+    // Smoke 1
+    imageMode(CENTER);
+    image(smoke1Image, 175, 200, 30, 30);
+    // Smoke 2
+    image(smoke2Image, 178, 165, 30, 30);
+    // Smoke 1
+    image(smoke1Image, 175, 130, 30, 30);
+    // Smoke 2
+    image(smoke2Image, 178, 95, 30, 30);
+    // Smoke 1
+    image(smoke1Image, 175, 60, 30, 30);
+    // Smoke 2
+    image(smoke2Image, 178, 25, 30, 30);
+    pop();
+
+    // Places images of the stars
     push();
     imageMode(CENTER);
     image(starImage, width * 0.10, height * 0.10, 60, 60);
@@ -54,6 +75,7 @@ function draw() {
     image(starImage, width * 0.80, height * 0.30, 60, 60);
     image(starImage, width * 0.90, height * 0.10, 60, 60);
     pop();
+
 
     // Draws the mountains
     //Mountain 1
@@ -79,6 +101,12 @@ function draw() {
     strokeWeight(4);
     rect(145, 240, 40, 40);
     pop();
+    // Draws the chimney of the house
+    push();
+    fill("#F05B5B");
+    stroke("#ae6161ff");
+    rect(169, 215, 10, 15);
+    pop();
     // Draws the roof of the house
     push();
     fill("#F05B5B");
@@ -92,5 +120,7 @@ function draw() {
     stroke("#ae6161ff");
     rect(158.3, 250, 13.3, 28);
     pop();
+
+
 
 }
