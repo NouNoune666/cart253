@@ -42,7 +42,7 @@ function draw() {
 
     drawSky();
     drawBrigitte();
-    drawEyes();
+    drawSun();
     // drawGrass();
     // drawMountain();
     // drawHouse();
@@ -142,11 +142,12 @@ function drawSky() {
     background(0, 30, 60);
 }
 
-function drawEyes() {
+function drawSun() {
     push();
-    fill(mouseX, mouseY, mouseX + mouseY);
-    ellipse(mouseX + 20, mouseY + 20, mouseX, mouseY);
-    ellipse(410, 250, mouseX, mouseY);
+    stroke("#574646ff");
+    strokeWeight(4);
+    fill(255, mouseX, 70);
+    ellipse(width, height - height, 300, 290);
     pop();
 }
 
