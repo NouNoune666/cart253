@@ -8,34 +8,43 @@
 "use strict";
 
 /** 
- * Creates canvas.
+ * Preloads the images. FUNCTION
+ */
+function preload() {
+    // Loads stars and smoke.
+    starImage = loadImage("assets/images/1_étoile.png");
+    smoke1Image = loadImage("assets/images/smoke_01.png");
+    smoke2Image = loadImage("assets/images/smoke_02.png");
+}
+
+/** 
+ * Creates canvas. FUNCTION
  */
 
 function setup() {
     createCanvas(600, 500)
 }
 
-// Why undefined???
+// Why undefined??? VARIABLE
 let starImage = undefined;
 let smoke1Image = undefined;
 let smoke2Image = undefined;
 
-/** 
- * Creates canvas.
- */
-function preload() {
-    // Loads the images (stars and smoke)
-    starImage = loadImage("assets/images/1_étoile.png");
-    smoke1Image = loadImage("assets/images/smoke_01.png");
-    smoke2Image = loadImage("assets/images/smoke_02.png");
-}
 
 /**
- * Creates my portrait.
+ * Creates my portrait. FUNCTION
  */
 
 function draw() {
-    background(0, 30, 60);
+
+    drawSky();
+    // drawGrass();
+    // drawMountain();
+    // drawHouse();
+    // drawSmoke();
+    // drawStars();
+    // drawMe();
+
 
     // Draws grass
     push();
@@ -74,6 +83,7 @@ function draw() {
     image(starImage, width * 0.70, height * 0.10, 60, 60);
     image(starImage, width * 0.80, height * 0.30, 60, 60);
     image(starImage, width * 0.90, height * 0.10, 60, 60);
+    image(starImage, mouseX, mouseY, 60, 60);
     pop();
 
 
@@ -123,4 +133,7 @@ function draw() {
 
 
 
+}
+function drawSky() {
+    background(0, 30, 60);
 }
