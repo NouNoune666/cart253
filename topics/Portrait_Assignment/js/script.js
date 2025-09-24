@@ -35,7 +35,7 @@ function draw() {
 
     // Draws grass
     push();
-    fill("#1ED760");
+    fill("#22e329ff");
     stroke("#386949ff");
     strokeWeight(4);
     rect(0, height * 0.85, width, height * 0.25);
@@ -55,19 +55,19 @@ function draw() {
     image(starImage, width * 0.90, height * 0.10, 60, 60);
     pop();
 
-    // Draws the moutains
-    //Moutain 1
+    // Draws the mountains
+    //Mountain 1
     push();
-    fill("#966638ff");
-    stroke("#5a4531ff");
+    fill("#22e329ff");
+    stroke("#386949ff");
     strokeWeight(4);
     triangle(width * 0.10, height * 0.85, width * 0.27, height * 0.5, width * 0.50, height * 0.85);
     pop();
     // Moutain 2
     push();
-    fill("#966638ff");
-    stroke("#5a4531ff");
+    fill("#22e329ff");
+    stroke("#386949ff");
     strokeWeight(4);
-    triangle(width * 0.10, height * 0.85, width * 0.27, height * 0.5, width * 0.50, height * 0.85);
+    triangle(width * 0.25, height * 0.85, width * 0.37, height * 0.6, width * 0.58, height * 0.85);
     pop();
 }
