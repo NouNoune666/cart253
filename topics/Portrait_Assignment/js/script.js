@@ -70,4 +70,27 @@ function draw() {
     strokeWeight(4);
     triangle(width * 0.25, height * 0.85, width * 0.37, height * 0.6, width * 0.58, height * 0.85);
     pop();
+
+    // Draws the chalet
+    // Draws the main part of the house
+    push();
+    fill("#855959");
+    stroke("#574646ff");
+    strokeWeight(4);
+    rect(145, 240, 40, 40);
+    pop();
+    // Draws the roof of the house
+    push();
+    fill("#F05B5B");
+    stroke("#ae6161ff")
+    strokeWeight(4);
+    triangle(144, 240, 164, 215, 186, 240);
+    pop();
+    // Draws the door of the house
+    push();
+    fill("#F05B5B");
+    stroke("#ae6161ff");
+    rect(158.3, 250, 13.3, 28);
+    pop();
+
 }
