@@ -1,12 +1,13 @@
 /**
  * Title: Self portrait in code
- * Nou Noune
+ * Nou Noune (Amélie Barrette)
  * 
- * Here's me!
+ * Here's a self portrait with things I enjoy: my grandmother's cottage, outdoors,starry nights and Brigitte the cat. Also features my real teeth. There's some interactivity so have fun!
  */
 
 "use strict";
 
+// VARIABLES AND OBJECTS (っ ᵔ◡ᵔ)っ
 // The blue sky.
 let sky = {
     color: {
@@ -111,7 +112,7 @@ let sun = {
     },
 }
 
-// The green grass
+// The green grass.
 let grass = {
     fill: "#22e329ff",
     stroke: "#386949ff",
@@ -124,62 +125,139 @@ let grass = {
     },
 }
 
-// Brigitte.
+// Brigitte the cat.
 let brigitteImage = undefined;
 let brigitteWidth = 60;
 let brigitteHeight = 60;
 
-//My face
+// The face
 let face = {
     head: {
         stroke: "#997C7D",
         strokeWeight: 4,
         fill: "#f3b4b6ff",
         x: 450,
-        y: 400,
+        y: 310,
         width: 220,
         height: 275,
-    }
+    },
+    eyes: {
+        pupil: {
+            stroke: "#434343ff",
+            strokeWeight: 4,
+            fill: "#000000ff",
+            width: 20,
+            height: 20,
+            left: {
+                x: 415,
+                y: 260,
+            },
+            right: {
+                x: 485,
+                y: 260,
+            },
+
+        },
+        iris: {
+            stroke: "#537d9bff",
+            strokeWeight: 4,
+            fill: "#4BB3FE",
+            width: 55,
+            height: 50,
+            left: {
+                x: 415,
+                y: 260,
+            },
+            right: {
+                x: 485,
+                y: 260,
+            },
+
+        },
+    },
 };
 
-// My teeth.
+// The neck.
+let neck = {
+    x: 420,
+    y: 440,
+    width: 60,
+    height: 100,
+}
+// The ears
+let ears = {
+    width: 30,
+    height: 45,
+};
+
+// Stars in the eyes.
+let eyestarImage = undefined;
+let eyestarWidth = 40;
+let eyestarHeight = 40;
+// Right eye.
+let eyestarRightX = 485;
+let eyestarRightY = 255;
+// Left eye.
+let eyestarLeftX = 410;
+let eyestarLeftY = 255;
+
+// The teeth.
 let dentsImage = undefined;
 let dentsWidth = 150;
 let dentsHeight = 150;
 
+// The hair.
+let hairImage = undefined;
+let hairBorderImage = undefined;
+let hairImageX = 444;
+let hairImageY = 250;
+let hairImageWidth = 540;
+let hairImageHeight = 490;
+
 // The text.
 let textSized = 32;
-let textFill = 255;
-let textStroke = 0;
-let textStrokeWeight = 4;
+let textFill = "#001E3C";
+let textStroke = "#749ec9ff";
+let textStrokeWeight = 2;
+let textX = 12;
+let textY = 430;
 
 // The smoke.
-let smokeImg = undefined;
-let smokeImgY = 175;
-let smokeImgVelocity = 0.5;
-// let smokeImgHeight = 60;
-// let smokeImgWidth = 30;
-// let smokeImgX = 175;
-// let smokeImgY = 200;
-// let smokeImgVelocityY = 1;
+// Smoke 1.
+let smokeImage = undefined;
+let smokeImageY = 175;
+let smokeImageX = 175;
+let smokeImageVelocity = 0.7;
+let smokeImageWidth = 18;
+let smokeImageHeight = 100;
+// Smoke 2.
+let smokeImage2 = undefined;
+let smokeImage2Y = smokeImageY + 200;
+
+// FUNCTIONS 	(っ ᵔ◡ᵔ)っ
 
 /** 
- * Preloads the images. FUNCTION
+ * Preloads the images. 
  */
 function preload() {
     // Loads stars and smoke.
     starImage = loadImage("assets/images/star.png");
-    smokeImg = loadImage("assets/images/smoke.png");
+    smokeImage = loadImage("assets/images/smoke.png");
+    smokeImage2 = loadImage("assets/images/smoke2.png");
     brigitteImage = loadImage("assets/images/brigitte.png");
     dentsImage = loadImage("assets/images/dents.png");
+    eyestarImage = loadImage("assets/images/eyestar.png");
+    hairImage = loadImage("assets/images/hair.png");
+    hairBorderImage = loadImage("assets/images/hairBorder.png");
 };
 
 /** 
- * Creates canvas. FUNCTION
+ * Creates canvas. 
  */
 function setup() {
     // Creates our canvas.
     createCanvas(600, 500);
+
 };
 
 /**
@@ -187,9 +265,10 @@ function setup() {
  */
 function draw() {
     drawBackground();
-    placeBrigitte();
     drawFace();
     drawText();
+    placeHair();
+    placeBrigitte();
 };
 
 /**
@@ -241,14 +320,14 @@ function placeStars() {
     push();
     imageMode(CENTER);
     image(starImage, width * 0.10, height * 0.20, starWidth, starHeight);
-    image(starImage, width * 0.20, height * 0.30, starWidth, starHeight);
-    image(starImage, width * 0.30, height * 0.10, starWidth, starHeight);
-    image(starImage, width * 0.40, height * 0.30, starWidth, starHeight);
-    image(starImage, width * 0.50, height * 0.10, starWidth, starHeight);
-    image(starImage, width * 0.60, height * 0.30, starWidth, starHeight);
+    image(starImage, width * 0.18, height * 0.40, starWidth, starHeight);
+    image(starImage, width * 0.30, height * 0.24, starWidth, starHeight);
+    image(starImage, width * 0.44, height * 0.40, starWidth, starHeight);
+    image(starImage, width * 0.50, height * 0.16, starWidth, starHeight);
+    image(starImage, width * 0.60, height * 0.36, starWidth, starHeight);
     image(starImage, width * 0.70, height * 0.10, starWidth, starHeight);
     image(starImage, width * 0.80, height * 0.30, starWidth, starHeight);
-    image(starImage, width * 0.90, height * 0.10, starWidth, starHeight);
+    image(starImage, width * 0.95, height * 0.50, starWidth, starHeight);
     pop();
 
 };
@@ -290,19 +369,25 @@ function drawChalet() {
  */
 function placeSmoke() {
     push();
-    // The smoke
+    // Smoke 1.
     imageMode(CENTER);
-    image(smokeImg, 175, smokeImgY, 28, 100);
-    pop();
-
-    // Move the smoke
-    push();
-    smokeImgY -= 0.5;
-    pop();
-
-    if (smokeImgY < 0) {
-        smokeImgY = 400;
+    image(smokeImage, smokeImageX, smokeImageY, smokeImageWidth, smokeImageHeight);
+    // Move the smoke.
+    smokeImageY -= smokeImageVelocity;
+    if (smokeImageY < -50) {
+        smokeImageY = 300;
     };
+    pop();
+    // Smoke 2.
+    push();
+    imageMode(CENTER);
+    image(smokeImage2, smokeImageX, smokeImage2Y, smokeImageWidth, smokeImageHeight);
+    // Move the smoke.
+    smokeImage2Y -= smokeImageVelocity;
+    if (smokeImage2Y < -50) {
+        smokeImage2Y = 300;
+    };
+    pop();
 };
 
 /**
@@ -344,11 +429,14 @@ function placeBrigitte() {
  * Creates the face.
  */
 function drawFace() {
+    drawNeck();
+    drawEars();
     drawHead();
     placeDents();
-    // drawNose();
-    // drawEars();
-    // drawEyes();
+    drawEyes();
+    placeEyestar();
+    drawNose();
+
 };
 
 /**
@@ -369,17 +457,136 @@ function drawHead() {
 function placeDents() {
     push();
     imageMode(CENTER);
-    image(dentsImage, face.head.x, face.head.y + 40, dentsWidth, dentsHeight);
+    image(dentsImage, face.head.x, face.head.y + 60, dentsWidth, dentsHeight);
     pop();
 };
+
+/**
+ * Draws eyes.
+ */
+function drawEyes() {
+    // Left iris.
+    push();
+    stroke(face.eyes.iris.stroke);
+    strokeWeight(face.eyes.iris.strokeWeight);
+    fill(face.eyes.iris.fill);
+    ellipse(face.eyes.iris.left.x, face.eyes.iris.left.y, face.eyes.iris.width, face.eyes.iris.height);
+    pop();
+    // Right iris.
+    push();
+    stroke(face.eyes.iris.stroke);
+    strokeWeight(face.eyes.iris.strokeWeight);
+    fill(face.eyes.iris.fill);
+    ellipse(face.eyes.iris.right.x, face.eyes.iris.right.y, face.eyes.iris.width, face.eyes.iris.height);
+    pop();
+    // Left pupil.
+    push();
+    stroke(face.eyes.pupil.stroke);
+    strokeWeight(face.eyes.pupil.strokeWeight);
+    fill(face.eyes.pupil.fill);
+    ellipse(face.eyes.pupil.left.x, face.eyes.pupil.left.y, face.eyes.pupil.width, face.eyes.pupil.height);
+    pop();
+    // Right pupil.
+    push();
+    stroke(face.eyes.pupil.stroke);
+    strokeWeight(face.eyes.pupil.strokeWeight);
+    fill(face.eyes.pupil.fill);
+    ellipse(face.eyes.pupil.right.x, face.eyes.pupil.right.y, face.eyes.pupil.width, face.eyes.pupil.height);
+    pop();
+    // Stars in right eye.
+    // Stars in left eye.
+};
+
+/**
+ * Places eyestars on both eyes.
+ */
+function placeEyestar() {
+    push();
+    imageMode(CENTER);
+    image(eyestarImage, eyestarLeftX, eyestarLeftY, eyestarWidth, eyestarHeight);
+    image(eyestarImage, eyestarRightX, eyestarRightY, eyestarWidth, eyestarHeight);
+    pop();
+};
+
+/**
+ * Places the hair image.
+ */
+function placeHair() {
+    // Hair border
+    push();
+    imageMode(CENTER);
+    image(hairBorderImage, hairImageX, hairImageY, hairImageWidth + 15, hairImageHeight + 15);
+    pop();
+    // Main hair.
+    push();
+    imageMode(CENTER);
+    image(hairImage, hairImageX, hairImageY, hairImageWidth, hairImageHeight);
+    pop();
+};
+
+/**
+ * Draws nose.
+ */
+function drawNose() {
+    push();
+    noFill();
+    // Tells p5.js to use degrees.
+    angleMode(DEGREES);
+    arc(face.head.x, face.head.y, 30, 20, 0, 180, OPEN);
+    pop();
+};
+
+/**
+ * Draws the neck.
+ */
+
+function drawNeck() {
+    push();
+    stroke(face.head.stroke);
+    strokeWeight(face.head.strokeWeight);
+    fill(face.head.fill);
+    rect(neck.x, neck.y, neck.width, neck.height);
+    pop();
+};
+
+/**
+ * Draws the ears.
+ */
+function drawEars() {
+    // Right ear.
+    push();
+    stroke(face.head.stroke);
+    strokeWeight(face.head.strokeWeight);
+    fill(face.head.fill);
+    ellipse(face.head.x + face.head.width / 2, face.head.y, ears.width, ears.height);
+    pop();
+    // Left ear.
+    push();
+    stroke(face.head.stroke);
+    strokeWeight(face.head.strokeWeight);
+    fill(face.head.fill);
+    ellipse(face.head.x - face.head.width / 2, face.head.y, ears.width, ears.height);
+    pop();
+}
 
 /**
  * Draws the text.
  */
 function drawText() {
+    push();
     textSize(textSized);
     fill(textFill);
+    textFont('Courier New');
     stroke(textStroke);
     strokeWeight(textStrokeWeight);
-    text('Hi, I am Nou Noune', 50, 50);
+    text('Hi, I am Nou Noune!', textX, textY);
+    pop();
+    push();
+    textSize(textSized);
+    fill(textFill);
+    textFont('Courier New');
+    stroke(textStroke);
+    strokeWeight(textStrokeWeight);
+    text('╰(*´︶`*)╯', textX + 40, textY + 40);
+    pop();
 }
