@@ -101,7 +101,7 @@ let sun = {
     strokeWeight: 4,
     fill: {
         red: 255,
-        green: undefined,
+        green: 10,
         blue: 70,
     },
     x: undefined,
@@ -203,6 +203,8 @@ let eyestarLeftY = 255;
 
 // The teeth.
 let dentsImage = undefined;
+let dentsX = face.head.x;
+let dentsY = face.head.y;
 let dentsWidth = 150;
 let dentsHeight = 150;
 
@@ -330,6 +332,7 @@ function placeStars() {
     image(starImage, width * 0.95, height * 0.50, starWidth, starHeight);
     pop();
 
+
 };
 
 /**
@@ -398,7 +401,7 @@ function drawSun() {
     stroke(sun.stroke);
     strokeWeight(sun.strokeWeight);
     // Uses mouse's X to determine the green.
-    fill(sun.fill.red, mouseX, sun.fill.blue);
+    fill(sun.fill.red, mouseY, sun.fill.blue);
     ellipse(width, sun.y, sun.size.width, sun.size.height);
     pop();
 };
@@ -457,8 +460,15 @@ function drawHead() {
 function placeDents() {
     push();
     imageMode(CENTER);
-    image(dentsImage, face.head.x, face.head.y + 60, dentsWidth, dentsHeight);
+    image(dentsImage, dentsX, dentsY + 60, dentsWidth, dentsHeight);
     pop();
+
+    // Make mouth Vibrate
+    dentsX += random(-2, 2);
+    dentsX = constrain(dentsX, 448, 453);
+
+    dentsY += random(-2, 2);
+    dentsY = constrain(dentsY, 308, 313);
 };
 
 /**
@@ -486,7 +496,7 @@ function drawEyes() {
     fill(face.eyes.pupil.fill);
     ellipse(face.eyes.pupil.left.x, face.eyes.pupil.left.y, face.eyes.pupil.width, face.eyes.pupil.height);
     pop();
-    // Right pupil.
+    // Right Pupil.
     push();
     stroke(face.eyes.pupil.stroke);
     strokeWeight(face.eyes.pupil.strokeWeight);
