@@ -30,7 +30,3 @@ function mousePressed() {
     ellipse(mouseX, mouseY, 50);
     pop();
 }
-
-if (keyIsPressed) {
-    background = background(255),
-}
