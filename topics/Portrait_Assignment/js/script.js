@@ -234,6 +234,7 @@ let smokeImageX = 175;
 let smokeImageVelocity = 0.7;
 let smokeImageWidth = 18;
 let smokeImageHeight = 100;
+
 // Smoke 2.
 let smokeImage2 = undefined;
 let smokeImage2Y = smokeImageY + 200;
@@ -531,6 +532,15 @@ function placeEyestar() {
     pop();
 };
 
+function mouseWheel(event) {
+    if (event.delta > 0) {
+        ball.size += 2;
+    }
+    else {
+        ball.size -= 2;
+
+    }
+}
 /**
  * Places the hair image.
  */
@@ -622,7 +632,6 @@ function drawText() {
     // text('click anywhere to start audio')
 };
 
-// const mouseIsOnMouth = (mouseX >= 400 && mouseX >= 500);
 
 // if (mouseIfOnMonth);
 function mousePressed() {
@@ -631,10 +640,9 @@ function mousePressed() {
     };
 }
 
-function keyPressed() {
-    mySound.stop();
+function mouseReleased() {
+    if (mouseReleased) {
+        mySound.stop();
+    };
 };
-
-
-
 
