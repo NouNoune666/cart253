@@ -9,6 +9,8 @@
 
 // VARIABLES AND OBJECTS (っ ᵔ◡ᵔ)っ
 // The blue sky.
+let mySound;
+
 let sky = {
     color: {
         red: 0,
@@ -100,9 +102,9 @@ let sun = {
     stroke: "#574646ff",
     strokeWeight: 4,
     fill: {
-        red: 255,
-        green: 10,
-        blue: 70,
+        red: 240,
+        green: 0,
+        blue: 80,
     },
     x: undefined,
     y: 0,
@@ -239,7 +241,7 @@ let smokeImage2Y = smokeImageY + 200;
 // FUNCTIONS 	(っ ᵔ◡ᵔ)っ
 
 /** 
- * Preloads the images. 
+ * Preloads the images and the audio. 
  */
 function preload() {
     // Loads stars and smoke.
@@ -251,6 +253,9 @@ function preload() {
     eyestarImage = loadImage("assets/images/eyestar.png");
     hairImage = loadImage("assets/images/hair.png");
     hairBorderImage = loadImage("assets/images/hairBorder.png");
+    // Loads the audio.
+    soundFormats('mp3', 'ogg');
+    mySound = loadSound('assets/audio/KatyPerrySimlish');
 };
 
 /** 
@@ -401,9 +406,16 @@ function drawSun() {
     stroke(sun.stroke);
     strokeWeight(sun.strokeWeight);
     // Uses mouse's X to determine the green.
-    fill(sun.fill.red, mouseY, sun.fill.blue);
+    fill(sun.fill.red, sun.fill.green, sun.fill.blue);
     ellipse(width, sun.y, sun.size.width, sun.size.height);
     pop();
+
+    sun.fill.green += 0.5;
+
+    if (sun.fill.green >= 255) {
+        sun.fill.green = 0;
+    };
+
 };
 
 /**
@@ -503,8 +515,7 @@ function drawEyes() {
     fill(face.eyes.pupil.fill);
     ellipse(face.eyes.pupil.right.x, face.eyes.pupil.right.y, face.eyes.pupil.width, face.eyes.pupil.height);
     pop();
-    // Stars in right eye.
-    // Stars in left eye.
+
 };
 
 /**
@@ -513,7 +524,9 @@ function drawEyes() {
 function placeEyestar() {
     push();
     imageMode(CENTER);
+    // Stars in left eye.
     image(eyestarImage, eyestarLeftX, eyestarLeftY, eyestarWidth, eyestarHeight);
+    // Stars in right eye.
     image(eyestarImage, eyestarRightX, eyestarRightY, eyestarWidth, eyestarHeight);
     pop();
 };
@@ -577,7 +590,7 @@ function drawEars() {
     fill(face.head.fill);
     ellipse(face.head.x - face.head.width / 2, face.head.y, ears.width, ears.height);
     pop();
-}
+};
 
 /**
  * Draws the text.
@@ -599,4 +612,29 @@ function drawText() {
     strokeWeight(textStrokeWeight);
     text('╰(*´︶`*)╯', textX + 40, textY + 40);
     pop();
+
+    // push();
+    // textSize(10);
+    // fill(textfill);
+    // textfont('Courier New');
+    // stroke(textStroke);
+    // strokeWeight(1);
+    // text('click anywhere to start audio')
+};
+
+// const mouseIsOnMouth = (mouseX >= 400 && mouseX >= 500);
+
+// if (mouseIfOnMonth);
+function mousePressed() {
+    if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
+        mySound.play();
+    };
 }
+
+function keyPressed() {
+    mySound.stop();
+};
+
+
+
+
