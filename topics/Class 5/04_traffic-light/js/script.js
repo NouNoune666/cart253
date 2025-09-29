@@ -27,6 +27,9 @@ const trafficLight = {
  */
 function setup() {
     createCanvas(400, 400);
+
+    // Start a timer for the light to change
+    setInterval(changeLight, trafficLight.delay);
 }
 
 /**
@@ -41,4 +44,17 @@ function draw() {
     fill(trafficLight.fill);
     ellipse(trafficLight.x, trafficLight.y, trafficLight.size);
     pop();
+}
+
+/**
+ * Called when the time finishes.
+ */
+function changeLight() {
+    if (trafficLight.fill === trafficLight.fills.go)
+        trafficLight.fill = trafficLight.fills.slow;
+    else if (trafficLight.fill === trafficLight.fills.slow) {
+        trafficLight.fill = trafficLight.fills.stop;
+    }
+    else if (trafficLight.fill === trafficLight.fills.stop)
+        trafficLight.fill = trafficLight.fills.go;
 }

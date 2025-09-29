@@ -2,7 +2,7 @@
 
 Amélie Barrette (Nou Noune)
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](https://nounoune666.github.io/cart253/topics/Portrait_Assignment/)
 
 ## Description
 
