@@ -1,24 +1,36 @@
 /**
- * Title of Project
- * Author Name
+ * Introducing Events
+ * Nou Noune
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Taking a look at how events work in JavaScript and p5.
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Creates the canvas, black.
 */
 function setup() {
-
+    createCanvas(800, 800);
+    background(0);
 }
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws circle at mouse location.
 */
 function draw() {
 
+}
+
+function mousePressed() {
+    push();
+    noStroke();
+    fill("#EF8396");
+    ellipse(mouseX, mouseY, 50);
+    pop();
+}
+
+if (keyIsPressed) {
+    background = background(255),
 }
