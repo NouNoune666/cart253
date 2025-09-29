@@ -34,9 +34,6 @@ function draw() {
     background(bg.fill);
 }
 
-function keyPressed() {
-
-}
 
 function changeBG(event) {
     if (event.keyCode === bg.switchKey) {
