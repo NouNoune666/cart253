@@ -254,23 +254,23 @@ let smokeImage2Y = smokeImageY + 200;
  */
 function preload() {
     // Stars.
-    starImage = loadImage("assets/images/star.png");
-    // Smoke.
-    smokeImage = loadImage("assets/images/smoke.png");
-    smokeImage2 = loadImage("assets/images/smoke2.png");
-    // Brigitte the cat.
-    brigitteImage = loadImage("assets/images/brigitte.png");
-    // Teeth.
-    dentsImage = loadImage("assets/images/dents.png");
-    // Eye star.
-    eyestarImage = loadImage("assets/images/eyestar.png");
-    // Hair and hair "border".
-    hairImage = loadImage("assets/images/hair.png");
-    hairBorderImage = loadImage("assets/images/hairBorder.png");
+    // starImage = loadImage("assets/images/star.png");
+    // // Smoke.
+    // smokeImage = loadImage("assets/images/smoke.png");
+    // smokeImage2 = loadImage("assets/images/smoke2.png");
+    // // Brigitte the cat.
+    // brigitteImage = loadImage("assets/images/brigitte.png");
+    // // Teeth.
+    // dentsImage = loadImage("assets/images/dents.png");
+    // // Eye star.
+    // eyestarImage = loadImage("assets/images/eyestar.png");
+    // // Hair and hair "border".
+    // hairImage = loadImage("assets/images/hair.png");
+    // hairBorderImage = loadImage("assets/images/hairBorder.png");
     // Audio.
-    // soundFormats('mp3', 'ogg');
-    // console.log("loadingsound")
-    // mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
+    soundFormats('mp3', 'ogg');
+    console.log("loadingsound")
+    mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
 }
 
 /** 
