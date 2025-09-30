@@ -2,15 +2,25 @@
  * Title: Self portrait in code
  * Nou Noune (Amélie Barrette)
  * 
- * Here's a self portrait with things I enjoy: my grandmother's cottage, outdoors,starry nights and Brigitte the cat. Also features my real teeth. There's some interactivity so have fun!
+ * Here's a self portrait with things I enjoy: my grandmother's cottage, outdoors,starry nights, Sims-related stuff and Brigitte the cat. Also features my real teeth. There's some interactivity so have fun!
+ * 
+ * Controls:
+ * - click on mouth to activate sound
+ * - release mouse to stop sound
+ * 
+ * Uses:
+ * p5.js
+ * https://p5js.org
  */
 
 "use strict";
 
 // VARIABLES AND OBJECTS (っ ᵔ◡ᵔ)っ
-// The blue sky.
+
+// Katy Perry simlish cover audio.
 let mySound;
 
+// The blue sky.
 let sky = {
     color: {
         red: 0,
@@ -46,7 +56,7 @@ let mountain = {
     },
 };
 
-// The stars.
+// The stars (image).
 let starImage = undefined;
 let starWidth = 60;
 let starHeight = 60;
@@ -103,7 +113,7 @@ let sun = {
     strokeWeight: 4,
     fill: {
         red: 240,
-        green: 0,
+        green: 0, // This property will change later on...
         blue: 80,
     },
     x: undefined,
@@ -120,19 +130,19 @@ let grass = {
     stroke: "#386949ff",
     strokeWeight: 4,
     x: 0,
-    y: undefined,
+    y: undefined, // This property will be based on the canvas' Y.
     size: {
         width: undefined,
         height: undefined,
     },
 }
 
-// Brigitte the cat.
+// Brigitte the cat (image).
 let brigitteImage = undefined;
 let brigitteWidth = 60;
 let brigitteHeight = 60;
 
-// The face
+// The face.
 let face = {
     head: {
         stroke: "#997C7D",
@@ -186,31 +196,30 @@ let neck = {
     width: 60,
     height: 100,
 }
-// The ears
+
+// The ears.
 let ears = {
     width: 30,
     height: 45,
 };
 
-// Stars in the eyes.
+// Stars in the eyes (image).
 let eyestarImage = undefined;
 let eyestarWidth = 40;
 let eyestarHeight = 40;
-// Right eye.
-let eyestarRightX = 485;
-let eyestarRightY = 255;
-// Left eye.
-let eyestarLeftX = 410;
-let eyestarLeftY = 255;
+let eyestarRightX = 485; // Right eye.
+let eyestarRightY = 255; // Right eye.
+let eyestarLeftX = 410; // Left eye.
+let eyestarLeftY = 255; // Left eye.
 
-// The teeth.
+// The teeth (image).
 let dentsImage = undefined;
 let dentsX = face.head.x;
 let dentsY = face.head.y;
 let dentsWidth = 150;
 let dentsHeight = 150;
 
-// The hair.
+// The hair and it's border (images).
 let hairImage = undefined;
 let hairBorderImage = undefined;
 let hairImageX = 444;
@@ -226,7 +235,7 @@ let textStrokeWeight = 2;
 let textX = 12;
 let textY = 430;
 
-// The smoke.
+// The smoke (images).
 // Smoke 1.
 let smokeImage = undefined;
 let smokeImageY = 175;
@@ -234,7 +243,6 @@ let smokeImageX = 175;
 let smokeImageVelocity = 0.7;
 let smokeImageWidth = 18;
 let smokeImageHeight = 100;
-
 // Smoke 2.
 let smokeImage2 = undefined;
 let smokeImage2Y = smokeImageY + 200;
@@ -242,31 +250,35 @@ let smokeImage2Y = smokeImageY + 200;
 // FUNCTIONS 	(っ ᵔ◡ᵔ)っ
 
 /** 
- * Preloads the images and the audio. 
+ * Preloads the image and audio files. 
  */
 function preload() {
-    // Loads stars and smoke.
+    // Stars.
     starImage = loadImage("assets/images/star.png");
+    // Smoke.
     smokeImage = loadImage("assets/images/smoke.png");
     smokeImage2 = loadImage("assets/images/smoke2.png");
+    // Brigitte the cat.
     brigitteImage = loadImage("assets/images/brigitte.png");
+    // Teeth.
     dentsImage = loadImage("assets/images/dents.png");
+    // Eye star.
     eyestarImage = loadImage("assets/images/eyestar.png");
+    // Hair and hair "border".
     hairImage = loadImage("assets/images/hair.png");
     hairBorderImage = loadImage("assets/images/hairBorder.png");
-    // Loads the audio.
+    // Audio.
     soundFormats('mp3', 'ogg');
     mySound = loadSound('assets/audio/KatyPerrySimlish');
-};
+}
 
 /** 
  * Creates canvas. 
  */
 function setup() {
-    // Creates our canvas.
+    // Creates the canvas.
     createCanvas(600, 500);
-
-};
+}
 
 /**
  * Creates my portrait.
@@ -277,7 +289,7 @@ function draw() {
     drawText();
     placeHair();
     placeBrigitte();
-};
+}
 
 /**
  * Creates the background (everything but the face).
@@ -290,7 +302,7 @@ function drawBackground() {
     drawChalet();
     drawSun();
     drawGrass();
-};
+}
 
 /**
  * Creates the sky.
@@ -298,13 +310,13 @@ function drawBackground() {
 function drawSky() {
     // Makes the sky dark blue.
     background(sky.color.red, sky.color.green, sky.color.blue);
-};
+}
 
 /**
  * Creates the moutains.
  */
 function drawMountains() {
-    //Creates mountain 1.
+    //Mountain 1.
     push();
     fill(mountain.one.fill);
     stroke(mountain.one.stroke);
@@ -318,7 +330,7 @@ function drawMountains() {
     strokeWeight(mountain.two.strokeWeight);
     triangle(mountain.two.x1, mountain.two.y1, mountain.two.x2, mountain.two.y2, mountain.two.x3, mountain.two.y3);
     pop();
-};
+}
 
 /**
  * Places the stars (images).
@@ -337,12 +349,10 @@ function placeStars() {
     image(starImage, width * 0.80, height * 0.30, starWidth, starHeight);
     image(starImage, width * 0.95, height * 0.50, starWidth, starHeight);
     pop();
-
-
-};
+}
 
 /**
- * Creates chalet.
+ * Creates the chalet.
  */
 function drawChalet() {
     // Creates the body part of the house.
@@ -371,10 +381,10 @@ function drawChalet() {
     stroke(chalet.door.stroke);
     rect(chalet.door.x, chalet.door.y, chalet.door.size.width, chalet.door.size.height);
     pop();
-};
+}
 
 /**
- * Places the images of the smoke.
+ * Places the images of the smoke and makes them move.
  */
 function placeSmoke() {
     push();
@@ -397,7 +407,7 @@ function placeSmoke() {
         smokeImage2Y = 300;
     };
     pop();
-};
+}
 
 /**
  * Creates the sun.
@@ -406,13 +416,12 @@ function drawSun() {
     push();
     stroke(sun.stroke);
     strokeWeight(sun.strokeWeight);
-    // Uses mouse's X to determine the green.
     fill(sun.fill.red, sun.fill.green, sun.fill.blue);
     ellipse(width, sun.y, sun.size.width, sun.size.height);
     pop();
 
+    // The sun's green changes over time.
     sun.fill.green += 0.5;
-
     if (sun.fill.green >= 255) {
         sun.fill.green = 0;
     };
@@ -429,7 +438,7 @@ function drawGrass() {
     strokeWeight(grass.strokeWeight);
     rect(grass.x, height * 0.75, width, height * 0.25);
     pop();
-};
+}
 
 /**
  * Places Brigitte the cat where the mouse is.
@@ -439,7 +448,7 @@ function placeBrigitte() {
     imageMode(CENTER);
     image(brigitteImage, mouseX, mouseY, brigitteWidth, brigitteHeight);
     pop();
-};
+}
 
 /**
  * Creates the face.
@@ -453,7 +462,7 @@ function drawFace() {
     placeEyestar();
     drawNose();
 
-};
+}
 
 /**
  * Draws the head.
@@ -465,10 +474,10 @@ function drawHead() {
     fill(face.head.fill);
     ellipse(face.head.x, face.head.y, face.head.width, face.head.height);
     pop();
-};
+}
 
 /**
- * Places the teeth.
+ * Places the teeth and makes them move.
  */
 function placeDents() {
     push();
@@ -476,16 +485,15 @@ function placeDents() {
     image(dentsImage, dentsX, dentsY + 60, dentsWidth, dentsHeight);
     pop();
 
-    // Make mouth Vibrate
+    // Makes teeth Vibrate.
     dentsX += random(-2, 2);
     dentsX = constrain(dentsX, 448, 453);
-
     dentsY += random(-2, 2);
     dentsY = constrain(dentsY, 308, 313);
-};
+}
 
 /**
- * Draws eyes.
+ * Draws the eyes.
  */
 function drawEyes() {
     // Left iris.
@@ -517,7 +525,7 @@ function drawEyes() {
     ellipse(face.eyes.pupil.right.x, face.eyes.pupil.right.y, face.eyes.pupil.width, face.eyes.pupil.height);
     pop();
 
-};
+}
 
 /**
  * Places eyestars on both eyes.
@@ -530,22 +538,13 @@ function placeEyestar() {
     // Stars in right eye.
     image(eyestarImage, eyestarRightX, eyestarRightY, eyestarWidth, eyestarHeight);
     pop();
-};
-
-function mouseWheel(event) {
-    if (event.delta > 0) {
-        ball.size += 2;
-    }
-    else {
-        ball.size -= 2;
-
-    }
 }
+
 /**
- * Places the hair image.
+ * Places the hair and hair border images.
  */
 function placeHair() {
-    // Hair border
+    // Hair border.
     push();
     imageMode(CENTER);
     image(hairBorderImage, hairImageX, hairImageY, hairImageWidth + 15, hairImageHeight + 15);
@@ -555,10 +554,10 @@ function placeHair() {
     imageMode(CENTER);
     image(hairImage, hairImageX, hairImageY, hairImageWidth, hairImageHeight);
     pop();
-};
+}
 
 /**
- * Draws nose.
+ * Draws the nose.
  */
 function drawNose() {
     push();
@@ -567,12 +566,11 @@ function drawNose() {
     angleMode(DEGREES);
     arc(face.head.x, face.head.y, 30, 20, 0, 180, OPEN);
     pop();
-};
+}
 
 /**
  * Draws the neck.
  */
-
 function drawNeck() {
     push();
     stroke(face.head.stroke);
@@ -580,7 +578,7 @@ function drawNeck() {
     fill(face.head.fill);
     rect(neck.x, neck.y, neck.width, neck.height);
     pop();
-};
+}
 
 /**
  * Draws the ears.
@@ -600,10 +598,10 @@ function drawEars() {
     fill(face.head.fill);
     ellipse(face.head.x - face.head.width / 2, face.head.y, ears.width, ears.height);
     pop();
-};
+}
 
 /**
- * Draws the text.
+ * Draws (or writes?) the text.
  */
 function drawText() {
     push();
@@ -623,26 +621,23 @@ function drawText() {
     text('╰(*´︶`*)╯', textX + 40, textY + 40);
     pop();
 
-    // push();
-    // textSize(10);
-    // fill(textfill);
-    // textfont('Courier New');
-    // stroke(textStroke);
-    // strokeWeight(1);
-    // text('click anywhere to start audio')
-};
+}
 
-
-// if (mouseIfOnMonth);
+/**
+ * Plays audio if mouse pressed on mouth.
+ *  */
 function mousePressed() {
     if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
         mySound.play();
     };
 }
 
+/**
+ * Stops audio if mouse released on mouth.
+ *  */
 function mouseReleased() {
     if (mouseReleased) {
         mySound.stop();
     };
-};
+}
 
