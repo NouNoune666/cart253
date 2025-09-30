@@ -259,6 +259,7 @@ function preload() {
     smokeImage = loadImage("assets/images/smoke.png");
     smokeImage2 = loadImage("assets/images/smoke2.png");
     // Brigitte the cat.
+    console.log("Brigitte")
     brigitteImage = loadImage("assets/images/brigitte_cat.png");
     // Teeth.
     dentsImage = loadImage("assets/images/dents.png");
@@ -269,7 +270,6 @@ function preload() {
     hairBorderImage = loadImage("assets/images/hairBorder.png");
     // Audio.
     soundFormats('mp3', 'ogg');
-    console.log("loadingsound")
     mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
 }
 
