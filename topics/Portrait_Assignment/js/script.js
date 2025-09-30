@@ -268,9 +268,9 @@ function preload() {
     // hairImage = loadImage("assets/images/hair.png");
     // hairBorderImage = loadImage("assets/images/hairBorder.png");
     // Audio.
-    soundFormats('mp3', 'ogg');
-    console.log("loadingsound")
-    mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
+    // soundFormats('mp3', 'ogg');
+    // console.log("loadingsound")
+    // mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
 }
 
 /** 
