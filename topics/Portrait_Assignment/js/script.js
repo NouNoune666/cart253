@@ -254,23 +254,23 @@ let smokeImage2Y = smokeImageY + 200;
  */
 function preload() {
     // Stars.
-    // starImage = loadImage("assets/images/star.png");
-    // // Smoke.
-    // smokeImage = loadImage("assets/images/smoke.png");
-    // smokeImage2 = loadImage("assets/images/smoke2.png");
-    // // Brigitte the cat.
-    // brigitteImage = loadImage("assets/images/brigitte.png");
-    // // Teeth.
-    // dentsImage = loadImage("assets/images/dents.png");
-    // // Eye star.
-    // eyestarImage = loadImage("assets/images/eyestar.png");
-    // // Hair and hair "border".
-    // hairImage = loadImage("assets/images/hair.png");
-    // hairBorderImage = loadImage("assets/images/hairBorder.png");
+    starImage = loadImage("assets/images/star.png");
+    // Smoke.
+    smokeImage = loadImage("assets/images/smoke.png");
+    smokeImage2 = loadImage("assets/images/smoke2.png");
+    // Brigitte the cat.
+    brigitteImage = loadImage("assets/images/brigitte.png");
+    // Teeth.
+    dentsImage = loadImage("assets/images/dents.png");
+    // Eye star.
+    eyestarImage = loadImage("assets/images/eyestar.png");
+    // Hair and hair "border".
+    hairImage = loadImage("assets/images/hair.png");
+    hairBorderImage = loadImage("assets/images/hairBorder.png");
     // Audio.
-    // soundFormats('mp3', 'ogg');
-    // console.log("loadingsound")
-    // mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
+    soundFormats('mp3');
+    console.log("loadingsound")
+    mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
 }
 
 /** 
@@ -624,21 +624,21 @@ function drawText() {
 
 }
 
-// /**
-//  * Plays audio if mouse pressed on mouth.
-//  *  */
-// function mousePressed() {
-//     if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
-//         mySound.play();
-//     };
-// }
+/**
+ * Plays audio if mouse pressed on mouth.
+ *  */
+function mousePressed() {
+    if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
+        mySound.play();
+    };
+}
 
-// /**
-//  * Stops audio if mouse released on mouth.
-//  *  */
-// function mouseReleased() {
-//     if (mouseReleased) {
-//         mySound.stop();
-//     };
-// }
+/**
+ * Stops audio if mouse released on mouth.
+ *  */
+function mouseReleased() {
+    if (mouseReleased) {
+        mySound.stop();
+    };
+}
 
