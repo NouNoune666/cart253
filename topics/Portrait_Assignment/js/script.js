@@ -269,6 +269,7 @@ function preload() {
     hairBorderImage = loadImage("assets/images/hairBorder.png");
     // Audio.
     // soundFormats('mp3', 'ogg');
+    console.log("loadingsound")
     mySound = loadSound('assets/audio/KatyPerrySimlish.mp3');
 }
 
