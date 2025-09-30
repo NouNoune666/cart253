@@ -624,21 +624,21 @@ function drawText() {
 
 }
 
-/**
- * Plays audio if mouse pressed on mouth.
- *  */
-function mousePressed() {
-    if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
-        mySound.play();
-    };
-}
+// /**
+//  * Plays audio if mouse pressed on mouth.
+//  *  */
+// function mousePressed() {
+//     if (mouseX >= 375 && mouseX <= 525 && mouseY > 330 && mouseY < 390) {
+//         mySound.play();
+//     };
+// }
 
-/**
- * Stops audio if mouse released on mouth.
- *  */
-function mouseReleased() {
-    if (mouseReleased) {
-        mySound.stop();
-    };
-}
+// /**
+//  * Stops audio if mouse released on mouth.
+//  *  */
+// function mouseReleased() {
+//     if (mouseReleased) {
+//         mySound.stop();
+//     };
+// }
 
