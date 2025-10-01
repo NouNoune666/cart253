@@ -1,12 +1,12 @@
-# Hi I am Nou Noune
+## Nou Noune's Art Jam
 
-Amélie Barrette (Nou Noune)
+By Amélie Barrette (Nou Noune).
 
 [View this project online](https://nounoune666.github.io/cart253/topics/Portrait_Assignment/)
 
 ## Description
 
-> *"Hi, I am Nou Noune" is a portrait assignment for Pippin Barr’s CART 253 class. It’s meant to give the user an idea of who I am — Amélie Barrette, aka Nou Noune.
+> *"Nou Noune's Art Jam" is a portrait assignment for Pippin Barr’s CART 253 class. It’s meant to give the user an idea of who I am — Amélie Barrette, aka Nou Noune.
 
 > The experience is designed to be observed, with a touch of interactivity. Move the mouse around and see who’s following you (hint: her name starts with a B). Hold the mouse down on the mouth and you’ll hear the most wonderful cover sung in Simlish (the language of The Sims). If you release the mouse, you'll hear nothing except for what is actually around you. Wow, immersive!
 
