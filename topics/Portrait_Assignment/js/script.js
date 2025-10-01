@@ -24,8 +24,9 @@ let mySound;
 let sky = {
     color: {
         red: 0,
-        green: 30,
-        blue: 60,
+        green: 0,
+        blue: 65,
+        change: 1,
     }
 };
 
@@ -122,6 +123,7 @@ let sun = {
         width: 300,
         height: 290,
     },
+    change: 0.5,
 }
 
 // The green grass.
@@ -259,7 +261,7 @@ function preload() {
     smokeImage = loadImage("assets/images/smoke.png");
     smokeImage2 = loadImage("assets/images/smoke2.png");
     // Brigitte the cat.
-    console.log("Brigitte")
+    console.log("")
     brigitteImage = loadImage("assets/images/brigitte_cat.png");
     // Teeth.
     dentsImage = loadImage("assets/images/dents.png");
@@ -309,8 +311,19 @@ function drawBackground() {
  * Creates the sky.
  */
 function drawSky() {
-    // Makes the sky dark blue.
+    // The sky's blue changes over time.
     background(sky.color.red, sky.color.green, sky.color.blue);
+
+    // The sun's green changes over time.
+    sky.color.blue += sky.color.change;
+    // The blue goes up.
+    if (sky.color.blue <= 65) {
+        sky.color.change = 1
+    };
+    // The blue goes down.
+    if (sky.color.blue >= 255) {
+        sky.color.change = -1
+    }
 }
 
 /**
@@ -422,11 +435,15 @@ function drawSun() {
     pop();
 
     // The sun's green changes over time.
-    sun.fill.green += 0.5;
-    if (sun.fill.green >= 255) {
-        sun.fill.green = 0;
+    sun.fill.green += sun.change;
+    // The green goes up.
+    if (sun.fill.green <= 0) {
+        sun.change = 1
     };
-
+    // The green goes down.
+    if (sun.fill.green >= 255) {
+        sun.change = -1
+    }
 };
 
 /**
