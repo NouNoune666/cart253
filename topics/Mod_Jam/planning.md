@@ -1,4 +1,4 @@
-# Planning
+# Planning (Pippin Barr's planning)
 
 ## Starting point
 

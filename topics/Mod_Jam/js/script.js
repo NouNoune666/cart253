@@ -1,6 +1,6 @@
 /**
- * Frogfrogfrog
- * Pippin Barr
+ * Frogfrogfrog (modified)
+ * Nou Noune (Amélie Barrette)
  * 
  * A game of catching flies with your frog-tongue
  * 
@@ -14,6 +14,7 @@
  */
 
 "use strict";
+
 
 // Our frog
 const frog = {
@@ -43,17 +44,118 @@ const fly = {
     speed: 3
 };
 
+let MENU = 0;
+let menu;
+let font;
+
+function preload() {
+    font = loadFont('/assets/fonts/Jersey20-Regular.otf');
+}
+
 /**
  * Creates the canvas and initializes the fly
  */
 function setup() {
-    createCanvas(640, 480);
+    createCanvas(1200, 800);
 
     // Give the fly its first random position
     resetFly();
+
+    // Main menu design
+    menu = {
+        stroke: "black",
+        strokeWeight: 10,
+        sizeX: width * 0.8,
+        sizeY: height * 0.4,
+        start: {
+            fill: "#FF0000",
+            x: width * 0.5,
+            y: height * 0.25,
+        },
+
+        instructions: {
+            fill: "#00FF00",
+            x: width * 0.5,
+            y: height * 0.75,
+        },
+        text: {
+            size: 150,
+            fill: "black",
+            font: font,
+            fontSize: 100,
+            start: {
+                x: width / 2,
+                y: height * 0.25,
+            },
+            instructions: {
+                x: width / 2,
+                y: height * 0.75,
+            },
+        }
+    }
 }
 
 function draw() {
+    if (MENU === 0) {
+        mainMenu();
+    }
+    else if (MENU === 1) {
+        gameMenu();
+    }
+    else if (MENU === 2) {
+        instructionsMenu();
+    }
+
+}
+
+/** 
+ * Draws the main menu
+ */
+function mainMenu() {
+
+    background("#87CEEB");
+
+    push();
+    rectMode(CENTER);
+    fill(menu.start.fill);
+    stroke(menu.stroke);
+    strokeWeight(menu.strokeWeight);
+    rect(menu.start.x, menu.start.y, menu.sizeX, menu.sizeY);
+    pop();
+
+    push();
+    rectMode(CENTER);
+    fill(menu.instructions.fill);
+    stroke(menu.stroke);
+    strokeWeight(menu.strokeWeight);
+    rect(menu.instructions.x, menu.instructions.y, menu.sizeX, menu.sizeY);
+    pop();
+
+    push();
+    textSize(menu.text.size);
+    fill(menu.text.fill);
+    textFont(menu.text.font, menu.text.size);
+    textAlign(CENTER, CENTER);
+    text('START', menu.text.start.x, menu.text.start.y);
+    text('INSTRUCTIONS', menu.text.instructions.x, menu.text.instructions.y);
+    pop();
+}
+
+function mouseClicked() {
+    if (MENU == 0) {
+        if (mouseX < 1080 && mouseX > 120) {
+            if (mouseY < 360 && mouseY > 40) {
+                MENU = 1
+            }
+            if (mouseY < 760 && mouseY > 440) {
+                MENU = 2
+            }
+        }
+    }
+}
+
+
+function gameMenu() {
     background("#87ceeb");
     moveFly();
     drawFly();
@@ -61,6 +163,24 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+}
+
+function instructionsMenu() {
+    background("#87CEEB");
+
+    push();
+    textSize(50);
+    fill('black');
+    textFont(font);
+    textAlign(CENTER, CENTER);
+    text('use WASD to move the frog', width / 2, 100);
+    text('use arrow up and arrow down to control', width / 2, 200);
+    text('the tongue and eat the flies', width / 2, 250);
+    text('do not eat the poisonous flies', width / 2, 350);
+    text('do not let the frog get too hungry', width / 2, 500);
+    text('do not let the frog get too full', width / 2, 600);
+    text('Have fun!', width / 2, 700);
+    pop();
 }
 
 /**
@@ -163,7 +283,7 @@ function checkTongueFlyOverlap() {
     // Get distance from tongue to fly
     const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
     // Check if it's an overlap
-    const eaten = (d < frog.tongue.size/2 + fly.size/2);
+    const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
     if (eaten) {
         // Reset the fly
         resetFly();
@@ -180,3 +300,4 @@ function mousePressed() {
         frog.tongue.state = "outbound";
     }
 }
+

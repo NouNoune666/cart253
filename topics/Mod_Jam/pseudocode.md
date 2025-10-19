@@ -3,7 +3,7 @@
 ```
 frog
     body
-        x: 320 // Halfway across a 640x480 canvas
+        x: 320 // Halfway across a 640x480 canvas 
         y: 480 // Bottom of a 640x480 canvas
         size: 100 // Diameter of the frog circle
     tongue
@@ -70,3 +70,7 @@ mousePressed()
     if (tongue state is idle)
         set tongue state to outbound
 ```
+
+Added by NouNoune:
+setup()
+background (create a bigger background)

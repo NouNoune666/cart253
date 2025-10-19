@@ -7,3 +7,6 @@ A game about catching flies.
 - [Ideas](./ideas.md)
 - [Planning](./planning.md)
 - [Pseudocode](./pseudocode.md)
+
+
+based my menu on this: https://editor.p5js.org/yeehaw/sketches/BZ2LtY_Uy
