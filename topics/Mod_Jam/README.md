@@ -10,3 +10,6 @@ A game about catching flies.
 
 
 based my menu on this: https://editor.p5js.org/yeehaw/sketches/BZ2LtY_Uy
+
+Sound Effect: Option Hover Click
+Download from https://tunetank.com

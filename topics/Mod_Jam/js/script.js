@@ -20,8 +20,8 @@
 const frog = {
     // The frog's body has a position and size
     body: {
-        x: 320,
-        y: 520,
+        x: undefined,
+        y: undefined,
         size: 150
     },
     // The frog's tongue has a position, size, speed, and state
@@ -29,27 +29,24 @@ const frog = {
         x: undefined,
         y: 480,
         size: 20,
-        speed: 20,
+        speed: 30,
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     }
 };
 
-// Our fly
-// Has a position, size, and speed of horizontal movement
-const fly = {
-    x: 0,
-    y: 200, // Will be random
-    size: 10,
-    speed: 3
-};
+let flies = []; // Empty list of fly quantity, array
 
 let MENU = 0;
 let menu;
 let font;
+let hoverSound;
+let frogImage;
 
 function preload() {
     font = loadFont('/assets/fonts/Jersey20-Regular.otf');
+    hoverSound = loadSound('/assets/sounds/hover.wav');
+    frogImage = loadImage('/assets/images/frog.png');
 }
 
 /**
@@ -58,8 +55,18 @@ function preload() {
 function setup() {
     createCanvas(1200, 800);
 
-    // Give the fly its first random position
-    resetFly();
+    // Our flies
+    // Has their position, size, and speed of horizontal movement
+    for (let i = 0; i < 5; i++) { // Will make 5 flies
+        flies.push({
+            x: random(width),
+            y: random(height - 200),
+            size: 10,
+            speed: random(2, 5),
+        });
+    }
+    // // Give the fly its first random position
+    // resetFlies();
 
     // Main menu design
     menu = {
@@ -68,13 +75,17 @@ function setup() {
         sizeX: width * 0.8,
         sizeY: height * 0.4,
         start: {
-            fill: "#FF0000",
+            fill: undefined,
+            fillRegular: "#FF0000",
+            fillHover: "#604242ff",
             x: width * 0.5,
             y: height * 0.25,
         },
 
         instructions: {
-            fill: "#00FF00",
+            fill: undefined,
+            fillRegular: "#00FF00",
+            fillHover: "#3e4d3eff",
             x: width * 0.5,
             y: height * 0.75,
         },
@@ -95,6 +106,9 @@ function setup() {
     }
 }
 
+/**
+ * Sends the user to game or instructions depending on what they click.
+ */
 function draw() {
     if (MENU === 0) {
         mainMenu();
@@ -114,6 +128,7 @@ function draw() {
 function mainMenu() {
 
     background("#87CEEB");
+    mouseHover();
 
     push();
     rectMode(CENTER);
@@ -141,6 +156,32 @@ function mainMenu() {
     pop();
 }
 
+/**
+ * When the mouse hovers over the 'start' or 'instructions' squares, those squares become darker.
+ */
+function mouseHover() {
+    if (MENU == 0) {
+        if (mouseX < 1080 && mouseX > 120 && mouseY < 360 && mouseY > 40) {
+            menu.start.fill = menu.start.fillHover
+        }
+        else {
+            menu.start.fill = menu.start.fillRegular
+        }
+    }
+
+    if (MENU == 0) {
+        if (mouseX < 1080 && mouseX > 120 && mouseY < 760 && mouseY > 440) {
+            menu.instructions.fill = menu.instructions.fillHover
+        }
+        else {
+            menu.instructions.fill = menu.instructions.fillRegular
+        }
+    }
+}
+
+/**
+ * On the main menu, brings the user to the instructions page or the game page.
+ */
 function mouseClicked() {
     if (MENU == 0) {
         if (mouseX < 1080 && mouseX > 120) {
@@ -154,11 +195,13 @@ function mouseClicked() {
     }
 }
 
-
+/**
+ * The game itself.
+ */
 function gameMenu() {
     background("#87ceeb");
-    moveFly();
-    drawFly();
+    moveFlies();
+    drawFlies();
     moveFrog();
     moveTongue();
     drawFrog();
@@ -177,8 +220,8 @@ function instructionsMenu() {
     text('use arrow up and arrow down to control', width / 2, 200);
     text('the tongue and eat the flies', width / 2, 250);
     text('do not eat the poisonous flies', width / 2, 350);
-    text('do not let the frog get too hungry', width / 2, 500);
-    text('do not let the frog get too full', width / 2, 600);
+    text('do not let the frog get too hungry or too full', width / 2, 500);
+    text('play with sound', width / 2, 600);
     text('Have fun!', width / 2, 700);
     pop();
 }
@@ -187,32 +230,47 @@ function instructionsMenu() {
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
  */
-function moveFly() {
-    // Move the fly
-    fly.x += fly.speed;
-    // Handle the fly going off the canvas
-    if (fly.x > width) {
-        resetFly();
+
+function moveFlies() {
+    for (let i = 0; i < flies.length; i++) {
+        flies[i].x += flies[i].speed;
+
+        // Resets fly if it goes off screen
+        if (flies[i].x > width) {
+            resetFlies();
+        }
     }
 }
+
+
+// function moveFly() {
+//     // Move the fly
+//     flyY[0] = 42;
+//     fly.x += random(2, 10);
+//     // Handle the fly going off the canvas
+//     if (fly.x > width) {
+//         resetFly();
+//     }
+// }
 
 /**
  * Draws the fly as a black circle
  */
-function drawFly() {
+function drawFlies() {
+
     push();
     noStroke();
     fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
+    ellipse(flies.x, flies.y, flies.size);
     pop();
 }
 
 /**
  * Resets the fly to the left with a random y
  */
-function resetFly() {
-    fly.x = 0;
-    fly.y = random(0, 300);
+function resetFlies() {
+    flies[i].x = 0;
+    flies[i].y = random(0, height - 100);
 }
 
 /**
@@ -220,6 +278,7 @@ function resetFly() {
  */
 function moveFrog() {
     frog.body.x = mouseX;
+    frog.body.y = mouseY;
 }
 
 /**
@@ -230,7 +289,8 @@ function moveTongue() {
     frog.tongue.x = frog.body.x;
     // If the tongue is idle, it doesn't do anything
     if (frog.tongue.state === "idle") {
-        // Do nothing
+        // Matches frog's y so that it doesn't drag
+        frog.tongue.y = frog.body.y
     }
     // If the tongue is outbound, it moves up
     else if (frog.tongue.state === "outbound") {
@@ -244,7 +304,7 @@ function moveTongue() {
     else if (frog.tongue.state === "inbound") {
         frog.tongue.y += frog.tongue.speed;
         // The tongue stops if it hits the bottom
-        if (frog.tongue.y >= height) {
+        if (frog.tongue.y >= frog.body.y) {
             frog.tongue.state = "idle";
         }
     }
@@ -270,9 +330,8 @@ function drawFrog() {
 
     // Draw the frog's body
     push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
+    imageMode(CENTER);
+    image(frogImage, frog.body.x, frog.body.y, frog.body.size, frog.body.size)
     pop();
 }
 
@@ -281,12 +340,12 @@ function drawFrog() {
  */
 function checkTongueFlyOverlap() {
     // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
+    const d = dist(frog.tongue.x, frog.tongue.y, flies.x, flies.y);
     // Check if it's an overlap
-    const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
+    const eaten = (d < frog.tongue.size / 2 + flies.size / 2);
     if (eaten) {
         // Reset the fly
-        resetFly();
+        resetFlies();
         // Bring back the tongue
         frog.tongue.state = "inbound";
     }
