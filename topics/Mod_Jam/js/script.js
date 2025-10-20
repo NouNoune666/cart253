@@ -22,7 +22,7 @@ const frog = {
     body: {
         x: undefined,
         y: undefined,
-        size: 150
+        size: 150,
     },
     // The frog's tongue has a position, size, speed, and state
     tongue: {
@@ -261,7 +261,7 @@ function drawFlies() {
     push();
     noStroke();
     fill("#000000");
-    ellipse(flies.x, flies.y, flies.size);
+    ellipse(flies[i].x, flies[i].y, flies[i].size);
     pop();
 }
 
