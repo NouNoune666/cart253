@@ -44,15 +44,15 @@ function draw() {
     drawfly(bussyTheFly);
 }
 
-function moveFly(fly) {
-    fly.x += random(-fly.buzziness, fly.buzziness);
-    fly.y += random(-fly.buzziness, fly.buzziness);
+function moveFly(thing) {
+    thing.x += random(-thing.buzziness, thing.buzziness);
+    thing.y += random(-thing.buzziness, thing.buzziness);
 }
 
-function drawfly(fly) {
+function drawfly(thing) {
     push();
     noStroke();
     fill(0);
-    ellipse(fly.x, fly.y, fly.size);
+    ellipse(thing.x, thing.y, thing.size);
     pop();
 }

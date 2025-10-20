@@ -35,16 +35,115 @@ const frog = {
     }
 };
 
-let flies = []; // Empty list of fly quantity, array
 
+const fly1 = {
+    x: 0,
+    y: 300,
+    Rx: {
+        min: 0,
+        max: 600,
+    },
+    Ry: {
+        min: 0,
+        max: 800,  // Will be random
+    },
+    size: 7,
+    Speed: undefined,
+    Rspeed: {
+        min: 2,
+        max: 10,
+    }
+
+};
+
+const fly2 = {
+    x: 0,
+    y: 300,
+    // Rx: {
+    //     min: 0,
+    //     max: 600,
+    // },
+    Ry: {
+        min: 0,
+        max: 800,  // Will be random
+    },
+    size: 8,
+    Speed: undefined,
+    Rspeed: {
+        min: 2,
+        max: 10,
+    }
+
+};
+
+const fly3 = {
+    x: 0,
+    y: 300,
+    Rx: {
+        min: 0,
+        max: 600,
+    },
+    Ry: {
+        min: 0,
+        max: 800,  // Will be random
+    },
+    size: 9,
+    Speed: undefined,
+    Rspeed: {
+        min: 2,
+        max: 10,
+    }
+
+};
+
+const fly4 = {
+    x: 0,
+    y: 300,
+    Rx: {
+        min: 0,
+        max: 600,
+    },
+    Ry: {
+        min: 0,
+        max: 800,  // Will be random
+    },
+    size: 10,
+    Speed: undefined,
+    Rspeed: {
+        min: 2,
+        max: 10,
+    }
+
+};
+
+const fly5 = {
+    x: 0,
+    y: 300,
+    Rx: {
+        min: 0,
+        max: 600,
+    },
+    Ry: {
+        min: 0,
+        max: 800,  // Will be random
+    },
+    size: 11,
+    Speed: undefined,
+    Rspeed: {
+        min: 2,
+        max: 10,
+    }
+
+};
 let MENU = 0;
 let menu;
-// let font;
+let font;
 let hoverSound;
 let frogImage;
 
+
 function preload() {
-    // font = loadFont('/assets/fonts/Jersey20-Regular.otf');
+    font = loadFont('/assets/fonts/Jersey20-Regular.otf');
     hoverSound = loadSound('/assets/sounds/hover.wav');
     frogImage = loadImage('/assets/images/frog.png');
 }
@@ -55,18 +154,12 @@ function preload() {
 function setup() {
     createCanvas(1200, 800);
 
-    // Our flies
-    // Has their position, size, and speed of horizontal movement
-    for (let i = 0; i < 5; i++) { // Will make 5 flies
-        flies.push({
-            x: random(width),
-            y: random(height - 200),
-            size: 10,
-            speed: random(2, 5),
-        });
-    }
     // // Give the fly its first random position
-    // resetFlies();
+    resetFly(fly1);
+    resetFly(fly2);
+    resetFly(fly3);
+    resetFly(fly4);
+    resetFly(fly5);
 
     // Main menu design
     menu = {
@@ -92,8 +185,8 @@ function setup() {
         text: {
             size: 150,
             fill: "black",
-            // font: font,
-            // fontSize: 100,
+            font: font,
+            fontSize: 100,
             start: {
                 x: width / 2,
                 y: height * 0.25,
@@ -119,7 +212,6 @@ function draw() {
     else if (MENU === 2) {
         instructionsMenu();
     }
-
 }
 
 /** 
@@ -149,8 +241,8 @@ function mainMenu() {
     push();
     textSize(menu.text.size);
     fill(menu.text.fill);
-    // textFont(menu.text.font, menu.text.size);
-    textFont('Courier New');
+    textFont(menu.text.font, menu.text.size);
+    // textFont('Courier New');
     textAlign(CENTER, CENTER);
     text('START', menu.text.start.x, menu.text.start.y);
     text('INSTRUCTIONS', menu.text.instructions.x, menu.text.instructions.y);
@@ -201,12 +293,25 @@ function mouseClicked() {
  */
 function gameMenu() {
     background("#87ceeb");
-    moveFlies();
-    drawFlies();
+    moveFly(fly1);
+    moveFly(fly2);
+    moveFly(fly3);
+    moveFly(fly4);
+    moveFly(fly5);
+    drawFly(fly1);
+    drawFly(fly2);
+    drawFly(fly3);
+    drawFly(fly4);
+    drawFly(fly5);
     moveFrog();
     moveTongue();
     drawFrog();
-    checkTongueFlyOverlap();
+    tongueControl();
+    checkTongueFlyOverlap(fly1);
+    checkTongueFlyOverlap(fly2);
+    checkTongueFlyOverlap(fly3);
+    checkTongueFlyOverlap(fly4);
+    checkTongueFlyOverlap(fly5);
 }
 
 function instructionsMenu() {
@@ -227,51 +332,37 @@ function instructionsMenu() {
     pop();
 }
 
+
 /**
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
  */
-
-function moveFlies() {
-    for (let i = 0; i < flies.length; i++) {
-        flies[i].x += flies[i].speed;
-
-        // Resets fly if it goes off screen
-        if (flies[i].x > width) {
-            resetFlies();
-        }
+function moveFly(fly) {
+    // Move the fly
+    fly.x += random(fly.Rspeed.min, fly.Rspeed.max);
+    // Handle the fly going off the canvas
+    if (fly.x > width) {
+        resetFly(fly);
     }
 }
-
-
-// function moveFly() {
-//     // Move the fly
-//     flyY[0] = 42;
-//     fly.x += random(2, 10);
-//     // Handle the fly going off the canvas
-//     if (fly.x > width) {
-//         resetFly();
-//     }
-// }
 
 /**
  * Draws the fly as a black circle
  */
-function drawFlies() {
-
+function drawFly(fly) {
     push();
     noStroke();
     fill("#000000");
-    ellipse(flies[i].x, flies[i].y, flies[i].size);
+    ellipse(fly.x, fly.y, fly.size);
     pop();
 }
 
 /**
  * Resets the fly to the left with a random y
  */
-function resetFlies() {
-    flies[i].x = 0;
-    flies[i].y = random(0, height - 100);
+function resetFly(fly) {
+    fly.x = 0;
+    fly.y = random(fly.Ry.min, fly.Ry.max);
 }
 
 /**
@@ -339,14 +430,14 @@ function drawFrog() {
 /**
  * Handles the tongue overlapping the fly
  */
-function checkTongueFlyOverlap() {
+function checkTongueFlyOverlap(fly) {
     // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, flies.x, flies.y);
+    const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
     // Check if it's an overlap
-    const eaten = (d < frog.tongue.size / 2 + flies.size / 2);
+    const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
     if (eaten) {
         // Reset the fly
-        resetFlies();
+        resetFly(fly);
         // Bring back the tongue
         frog.tongue.state = "inbound";
     }
@@ -355,9 +446,13 @@ function checkTongueFlyOverlap() {
 /**
  * Launch the tongue on click (if it's not launched yet)
  */
-function mousePressed() {
-    if (frog.tongue.state === "idle") {
+function tongueControl() {
+    if (keyIsDown(UP_ARROW) === true && frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
     }
+    if (keyIsDown(DOWN_ARROW) === true && frog.tongue.state === "outbound") {
+        frog.tongue.state = "inbound";
+    }
+
 }
 
