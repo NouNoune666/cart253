@@ -39,12 +39,12 @@ let flies = []; // Empty list of fly quantity, array
 
 let MENU = 0;
 let menu;
-let font;
+// let font;
 let hoverSound;
 let frogImage;
 
 function preload() {
-    font = loadFont('/assets/fonts/Jersey20-Regular.otf');
+    // font = loadFont('/assets/fonts/Jersey20-Regular.otf');
     hoverSound = loadSound('/assets/sounds/hover.wav');
     frogImage = loadImage('/assets/images/frog.png');
 }
@@ -92,8 +92,8 @@ function setup() {
         text: {
             size: 150,
             fill: "black",
-            font: font,
-            fontSize: 100,
+            // font: font,
+            // fontSize: 100,
             start: {
                 x: width / 2,
                 y: height * 0.25,
@@ -149,7 +149,8 @@ function mainMenu() {
     push();
     textSize(menu.text.size);
     fill(menu.text.fill);
-    textFont(menu.text.font, menu.text.size);
+    // textFont(menu.text.font, menu.text.size);
+    textFont('Courier New');
     textAlign(CENTER, CENTER);
     text('START', menu.text.start.x, menu.text.start.y);
     text('INSTRUCTIONS', menu.text.instructions.x, menu.text.instructions.y);
