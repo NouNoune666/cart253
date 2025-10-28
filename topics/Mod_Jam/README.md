@@ -15,3 +15,11 @@ code for changing sky: https://editor.p5js.org/howshekilledit/sketches/nZ0VrkfPa
 
 Sound Effect: Option Hover Click
 Download from https://tunetank.com
+
+https://stackoverflow.com/questions/4738595/how-do-i-delay-a-function-call-for-5-seconds
+
+https://stock.adobe.com/ca/search?k=pixel+clouds&asset_id=706529322
+
+sounds from mixkit
+
+licking sound from https://pixabay.com/

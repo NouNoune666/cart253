@@ -284,6 +284,7 @@ const badFly6 = {
     }
 };
 
+let hasPlayed = false
 let bgTimer = 0; // This tracks time for the background
 let score = 0; // The score starts at 0, score is number of flies eaten
 let placement = 0 // The placement starts at 0
@@ -455,6 +456,7 @@ function draw() {
     // Sets the different menus (1 to 6)
     if (MENU === 0) {
         mainMenu(); // Main menu
+        hasPlayed = false;
         score = 0; // Resets the score
         placement = 0; // Resets the placement
         bgTimer = 0; // Resets the timer
@@ -479,6 +481,7 @@ function draw() {
     }
     else if (MENU === 3) { // The game over menu if the user ate a poisonous fly
         gameOverPoison();
+        hasPlayed = false;
         score = 0; // Resets the score
         placement = 0; // Resets the placement
     }
@@ -883,7 +886,7 @@ function drawFrog() {
     // Used image as frog's body
     push();
     imageMode(CENTER);
-    image(frogImage, frog.body.x, frog.body.y, frog.body.size, frog.body.size)
+    image(frogImage, frog.body.x, frog.body.y, 175, frog.body.size)
     pop();
 }
 
@@ -977,7 +980,11 @@ function checkFrogBadFlyOverlap(fly) {
  */
 function gameOverPoison() {
 
-    gameOverSound.play(); // game over sound
+    // A game over sound plays, but after it has played it doesn't play again
+    if (!gameOverSound.isPlaying() && !hasPlayed) {
+        gameOverSound.play();
+        hasPlayed = true;
+    }
 
     // Translucent gray rectangle
     push();
