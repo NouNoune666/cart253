@@ -10,6 +10,8 @@ A game about catching flies.
 
 
 based my menu on this: https://editor.p5js.org/yeehaw/sketches/BZ2LtY_Uy
+code for changing sky: https://editor.p5js.org/howshekilledit/sketches/nZ0VrkfPa
+
 
 Sound Effect: Option Hover Click
 Download from https://tunetank.com
