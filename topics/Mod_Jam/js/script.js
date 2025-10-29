@@ -783,7 +783,7 @@ function instructionsMenu() {
     fill('black');
     textFont(font);
     textAlign(CENTER, CENTER); // Centers our text
-    text('> Use WASD to move the frog.', width / 2, 100);
+    text('> Use the mouse to move the frog.', width / 2, 100);
     text('> Eat the regular flies.', width / 2, 200);
     text('> Do not eat the poisonous flies.', width / 2, 250);
     text('> Do not let the frog get too hungry.', width / 2, 350);
@@ -1240,8 +1240,8 @@ function gameDoneGood() {
  * Keeps track of time with a timer
  */
 function timeGoesBy() {
-    // After 5 seconds of playing, if the frog doesn't eatenoigh, it becomes hungry, every two seconds the placement goes down 3 units
-    if (frameCount % 120 === 0 && bgTimer > 300) { //
+    // After 6 seconds of playing, if the frog doesn't eatenoigh, it becomes hungry, every two seconds the placement goes down 3 units
+    if (frameCount % 120 === 0 && bgTimer > 360) { //
         placement -= 3;
     }
 
@@ -1258,7 +1258,7 @@ function timeGoesBy() {
     }
 
     console.log(placement);
-    console.log(score);
+    // console.log(score);
     // console.log(bgTimer);
 }
 
