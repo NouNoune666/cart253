@@ -27,7 +27,7 @@ const frog = {
     body: {
         x: undefined,
         y: undefined,
-        size: 160,
+        size: 115,
     },
     // The frog's tongue has a position, size, speed, state, and maximum height
     tongue: {
@@ -284,27 +284,30 @@ const badFly6 = {
     }
 };
 
-let hasPlayed = false
 let bgTimer = 0; // This tracks time for the background
 let score = 0; // The score starts at 0, score is number of flies eaten
 let placement = 0 // The placement starts at 0
 let MENU = 0; // Menu starts at 0 which is the main menu
-let menu; // The different menu designs
-let font; // Our cool font
+let menu = undefined;// The different menu designs
+let font = undefined; // Our cool font
 
 // Sounds
-let clickSound; // Click sound in menu
-let gameOverSound; // Game over sound
+let clickSound = undefined; // Click sound in menu
+let gameOverSound = undefined; // Game over sound
+let buzzingSound = undefined; // Flies buzzing sound
+let catchSound = undefined; // Sound when a fly is caught
+let congratsSound = undefined; // Sound when you survive the night
+let poisonFlySound = undefined; // Sound when you eat a poisonous fly
 
 //Images
-let frogImage; // Our frog as an image
-let cloudsImage; // Our clouds as an image
-let flyImage; // Our fly as an image
-let poisonFlyImage; // Our poisonous fly as an image
-let tongueFrogImage; // Our frog with tongue out as an image (this one is just for the instructions menu)
+let frogImage = undefined; // Our frog as an image
+let cloudsImage = undefined; // Our clouds as an image
+let flyImage = undefined; // Our fly as an image
+let poisonFlyImage = undefined; // Our poisonous fly as an image
+let tongueFrogImage = undefined; // Our frog with tongue out as an image (this one is just for the instructions menu)
 
-let bgStartColor; // Our background's start color
-let bgEndColor; // Our background's end color
+let bgStartColor = undefined; // Our background's start color
+let bgEndColor = undefined; // Our background's end color
 
 /**
  * Preloads all our files (font, image and audio) 
@@ -315,6 +318,10 @@ function preload() {
     // Sounds
     clickSound = loadSound('assets/sounds/click.wav');
     gameOverSound = loadSound('assets/sounds/gameOver.wav');
+    buzzingSound = loadSound('assets/sounds/buzzing.wav');
+    catchSound = loadSound('assets/sounds/catch.wav');
+    congratsSound = loadSound('assets/sounds/congrats.wav');
+    poisonFlySound = loadSound('assets/sounds/poisonFly.wav');
 
     // Images
     frogImage = loadImage('assets/images/frog.png');
@@ -428,8 +435,7 @@ function setup() {
         },
         done: {
             fill: {
-                good: color(135, 206, 235, 15),
-                bad: color(100, 100, 100, 15),
+                good: color(0, 255, 0, 15),
             },
             stroke: "black",
             strokeWeight: 10,
@@ -456,10 +462,10 @@ function draw() {
     // Sets the different menus (1 to 6)
     if (MENU === 0) {
         mainMenu(); // Main menu
-        hasPlayed = false;
         score = 0; // Resets the score
         placement = 0; // Resets the placement
         bgTimer = 0; // Resets the timer
+        // Resets all flies
         resetBadFly(badFly1);
         resetBadFly(badFly2);
         resetBadFly(badFly3);
@@ -481,14 +487,15 @@ function draw() {
     }
     else if (MENU === 3) { // The game over menu if the user ate a poisonous fly
         gameOverPoison();
-        hasPlayed = false;
         score = 0; // Resets the score
         placement = 0; // Resets the placement
+        buzzingSound.stop(); // Stops the buzzing sound
     }
     else if (MENU === 4) { // The game over menu if the frog starved
         gameOverStarving();
         score = 0; // Resets the score
         placement = 0; // Resets the placement
+        buzzingSound.stop(); // Stops the buzzing sound
 
     }
     // DELETED - The game over menu if the user was too full. Removed this because I wanted it to be easier to win, more fun! - DELETED
@@ -498,6 +505,7 @@ function draw() {
     // }
     else if (MENU === 6) {
         gameDoneGood(); // The menu once the game is over aka when the night comes.
+        buzzingSound.stop(); // Stops the buzzing sound
     }
 
     // Instruction menu conditions
@@ -520,6 +528,7 @@ function draw() {
         score = 0; // Resets the score
         placement = 0; // Resets the placement
         bgTimer = 0; // Resets the timer
+        // Resets all flies
         resetBadFly(badFly1);
         resetBadFly(badFly2);
         resetBadFly(badFly3);
@@ -545,6 +554,7 @@ function draw() {
         score = 0; // Resets the score
         placement = 0; // Resets the placement
         bgTimer = 0; // Resets the timer
+        // Resets all flies
         resetBadFly(badFly1);
         resetBadFly(badFly2);
         resetBadFly(badFly3);
@@ -589,6 +599,7 @@ function draw() {
         score = 0; // Resets the score
         placement = 0; // Resets the placement
         bgTimer = 0; // Resets the timer
+        // Resets all flies
         resetBadFly(badFly1);
         resetBadFly(badFly2);
         resetBadFly(badFly3);
@@ -689,6 +700,11 @@ function mouseClicked() {
  */
 function gameMenu() {
     // scoreColor(); // DELETED - background color doesn't change depending on score anymore
+
+    // Buzzing starts playing
+    if (!buzzingSound.isPlaying()) {
+        buzzingSound.play();
+    }
 
     resetBg(); // Resets the color of ther background to sky blue
     drawClouds(); // Draws the clouds
@@ -792,13 +808,13 @@ function instructionsMenu() {
     // Frog image
     push();
     imageMode(CENTER);
-    image(frogImage, width * 0.2, 615, 150, 150)
+    image(frogImage, width * 0.2, 615, 200, 120)
     pop();
 
     // Frog with tongue out image
     push();
     imageMode(CENTER);
-    image(tongueFrogImage, width * 0.8, 570, 150, 300)
+    image(tongueFrogImage, width * 0.8, 570, 200, 300)
     pop();
 
     // Curved border
@@ -876,7 +892,7 @@ function resetBadFly(fly) {
  */
 function drawFrog() {
 
-    // Draw the the tongue
+    // Draw the tongue
     push();
     stroke("#ff0000");
     strokeWeight(frog.tongue.size);
@@ -886,7 +902,7 @@ function drawFrog() {
     // Used image as frog's body
     push();
     imageMode(CENTER);
-    image(frogImage, frog.body.x, frog.body.y, 175, frog.body.size)
+    image(frogImage, frog.body.x, frog.body.y, frog.body.size + 70, frog.body.size)
     pop();
 }
 
@@ -945,6 +961,8 @@ function checkFrogFlyOverlap(fly) {
         placement += 1; // Hunger level goes up
         // tongue goes up
         frog.tongue.state = "outbound";
+        // Catch sound plays and does not overlap
+        catchSound.play();
     }
 }
 
@@ -957,8 +975,10 @@ function checkFrogBadFlyOverlap(fly) {
     // Check if it's an overlap
     const eaten = (d < frog.body.size / 2 + fly.size / 2);
     if (eaten) {
-        // frog.tongue.state = "outbound";
         MENU = 3;
+        // A game over sound plays
+        gameOverSound.play();
+        poisonFlySound.play();
     }
 }
 
@@ -979,12 +999,6 @@ function checkFrogBadFlyOverlap(fly) {
  * Is displayed when poison fly is eaten
  */
 function gameOverPoison() {
-
-    // A game over sound plays, but after it has played it doesn't play again
-    if (!gameOverSound.isPlaying() && !hasPlayed) {
-        gameOverSound.play();
-        hasPlayed = true;
-    }
 
     // Translucent gray rectangle
     push();
@@ -1035,6 +1049,7 @@ function gameOverPoison() {
  * Is displayed when the frog starves
  */
 function gameOverStarving() {
+
     // Translucent gray rectangle
     push();
     rectMode(CENTER);
@@ -1069,7 +1084,7 @@ function gameOverStarving() {
     fill(menu.starving.text.fill);
     textFont(menu.font, menu.starving.text.size2);
     textAlign(CENTER, CENTER);
-    text('ESC for main menu. ENTER to start over', width / 2, height * 0.75);
+    text('ESC for main menu. ENTER to start over.', width / 2, height * 0.75);
     pop();
 
     // Curved border
@@ -1233,17 +1248,18 @@ function timeGoesBy() {
     // If it is too hungry, it dies
     if (placement <= -1) {
         MENU = 4
+        gameOverSound.play();
     }
 
-    // After 30 seconds and if the score is bigger than zero
+    // After 20 seconds and if the score is bigger than zero
     if (bgTimer === 1800 && placement >= 1) {
         MENU = 6;
+        congratsSound.play();
     }
 
-    // For meeeee
-    // console.log(placement);
-    //     console.log(score);
-    //     console.log(bgTimer);
+    console.log(placement);
+    console.log(score);
+    // console.log(bgTimer);
 }
 
 /**
