@@ -1,6 +1,6 @@
 /**
  * Vertical circles
- * Pippin Barr
+ * Nou Noune
  * 
  * Draws a series of circles from the top to the bottom of the canvas.
  * Arguably not in the most efficient way.
@@ -21,16 +21,13 @@ function setup() {
 function draw() {
     background(0);
 
-    // Draw a series of 50-pixel diameter circles
-    // Starting at the top of the canvas
-    // And ending at the bottom
-    ellipse(200, 0, 50);
-    ellipse(200, 50, 50);
-    ellipse(200, 100, 50);
-    ellipse(200, 150, 50);
-    ellipse(200, 200, 50);
-    ellipse(200, 250, 50);
-    ellipse(200, 300, 50);
-    ellipse(200, 350, 50);
-    ellipse(200, 400, 50);
+    let x = 0;
+    let y = 0;
+    let diameter = 10;
+
+    while (y <= height) {
+        ellipse(x, y, diameter);
+        y += diameter;
+        x += diameter;
+    }
 }
