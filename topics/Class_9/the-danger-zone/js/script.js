@@ -1,6 +1,6 @@
 /**
  * The Danger Zone
- * Pippin Barr
+ * Nou Noune
  * 
  * A world. A danger zone. A need to place our hero randomly  in the world
  * so that they don't land in the danger zone.
@@ -12,7 +12,7 @@
 const dangerZone = {
     x: 200,
     y: 200,
-    size: 100
+    size: 100,
 };
 
 // Our hero! We want to place them on the canvas, but
@@ -59,7 +59,16 @@ function placeHero() {
     // Choose a random spot for the hero
     hero.x = random(0, width);
     hero.y = random(0, height);
+
     // This COULD BE IN THE DANGER ZONE
+    let d = dist(hero.x, hero.y, dangerZone.x, dangerZone.y);
+
+    while (d < hero.size / 2 + dangerZone.size / 2) {
+        hero.x = random(0, width);
+        hero.y = random(0, height);
+
+        d = dist(hero.x, hero.y, dangerZone.x, dangerZone.y);
+    }
 }
 
 /**
