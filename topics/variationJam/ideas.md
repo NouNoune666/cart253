@@ -1,24 +1,15 @@
-# Starting points
+# Ideas
 
+1. When the frog eats a fly, they double. Arrays. DOUBLE TROUBLE
 
-Finding metro tickets on the ground and trying to sell them
+2. The flies all follow the mouse. SHOULDA BOUGHT SOME FLY REPELLENT
 
-**Frog eating flies but it gets harder and harder to catch them**
+3. Each time the frog eats a fly, it grows until it takes the whole screen. Loops. THICC FROG
 
-Swimming lessons but controlling your body is really hard
+4. A gradiant that changes every time a fly is eaten. This one is just nice to look at. A WORK OF ART
 
-Crossing the street and it’s busy
+5. Each time a fly is eaten, their level of buziness augments until they die. STRESSED OUT
 
-Riding a tricycle but the wheel keeps falling off
+6. When you place the tongue (or frog) on the flies they simply change color. Inspo: https://editor.p5js.org/pippinbarr/sketches/Yc4eMdFyH. COLOR ME SUPRISED
 
-Shaving people’s heads in beautiful patterns and showing them at an art gallery
-
-Making cups out of clay and seeing what cafe customers say about them
-
-Growing plants that eat you
-
-Keeping a computer mouse as a pet and looking after it
-
-Rewiring a light
-
-Cooking spaghetti with a dog
+7. You have to push around the frog (kinda like air hockey) in order to get the flies. Inspo: https://editor.p5js.org/pippinbarr/sketches/IMjU5KE_N. AIR FROCKEY
