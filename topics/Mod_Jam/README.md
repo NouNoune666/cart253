@@ -13,10 +13,12 @@ A game about a hungry flying frog.
 - [Pseudocode](./pseudocode.md)
 
 Credits:
+- Got the base game from Pippin Barr: https://github.com/pippinbarr/frogfrogfrog/blob/main/README.md
 - Got inspired by this for my menu: https://editor.p5js.org/yeehaw/sketches/BZ2LtY_Uy
 - Code used for changing sky color: https://editor.p5js.org/howshekilledit/sketches/nZ0VrkfPa
 - Used this asset and modified it a bit for my clouds: https://stock.adobe.com/ca/search?k=pixel+clouds&asset_id=706529322
 - All sounds from: https://mixkit.co/
+- Thank you to Philou for our brainstorming sessions <3
 
 Project instructions
 
