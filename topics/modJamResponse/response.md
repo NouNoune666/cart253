@@ -1,12 +1,13 @@
 https://yatsukki.github.io/cart253/topic/events/flying-frogs/ by Kerven
 
-
 I know Kerven to be a very impressive graphic designer so it was no surprise that the designs for his game were impressive. The style was cohesive throughout the different pages and very visually appealing. Another thing that struck my attention was the floating title and clouds in the instructions menu. The animation was very smooth. I thought maybe the back and forth movement was done with a loop but was happily surprised to see that it was just a line of code with sin and frame count. I will definitely keep that in mind for future projects.
 
 
 https://yelenaarakelian.github.io/cart253/topics/mod-jam/ by Yelena
+
 Playing Yelena’s game felt like scrolling through a meme page in 2015. The pepe the frog, the gif, the scream audio, all of it. It was full of surprises. Other than the cool gameplay, two features really piqued my interest. The first one was the fact that you had to type ‘frog’ to start the game. It wasn’t just a single pressed key as we had learnt in class. I have to say I looked through the code to try and understand how this worked and I don’t fully understand. There’s a lot of code going on from line 416 to line 438 that is not clicking in my brain. I’ll have to ask Pippin to explain or Yelena herself. Another feature that I had to look into was the video. I’m a beginner at javascript and every new feature, even one as simple as integrating video, impresses me, it’s pretty fun! I had less trouble understanding the code for this feature though. I also have to say that I really enjoyed the images used for the horseflies. There’s always a lot of horseflies at my grandma’s cottage and I hate them with a passion and I guess it was nice to see them portrayed like that.
 
 
 https://chloe-jpeg.github.io/CART253/MOD-JAM/ by Chloe
+
 I really enjoyed Chloe’s game as well. It was clean, aesthetically pleasing and intuitive. The score line worked really well and I had to look into it. Having a score line like that was my initial idea for the game but I ended up going for what I thought was a simpler solution (it was not). The score line in Chloe’s code is simple as it uses only two line() calls and one variable. Having the orange line over the white line is also very smart and simple. It's not a different color border around a line. Although, I wonder if that is possible. I was also wondering how the score line looked rounded at the edges. So I looked it up and found out that every line in p5js is like that by default, I just had not realized it. I also found out about the different strokeCap() options, so that’s great to know!
