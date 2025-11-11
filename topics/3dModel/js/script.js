@@ -6,17 +6,29 @@
 
 "use strict";
 
-let cat;
-// let catUV;
 
+let frog;
+let material;
+let cam;
+let delta = 0.001;
+
+let froggy = {
+    x: 0, // will change
+    y: 0, // will change
+    z: 0, // will change
+    speed: 2,
+};
 
 function preload() {
-    cat = loadModel('assets/images/CatModel.obj', true);
-    // catUV = loadImage('assets/images/Cat_diffuse.jpg');
+    frog = loadModel('assets/images/frog.obj', true)
+    material = loadImage('assets/images/frog_diff.jpg')
 }
 
 function setup() {
-    createCanvas(500, 500, WEBGL);
+    createCanvas(1000, 1000, WEBGL);
+    cam = createCamera();
+    cam.setPosition(0, -400, 800);
+    cam.lookAt(0, 0, 0);
 }
 
 
@@ -26,8 +38,28 @@ function setup() {
 function draw() {
     background('pink');
     orbitControl();
-    // texture(catUV);
-    model(cat);
+
+    noStroke();
+    texture(material);
+
+    translate(froggy.x, froggy.y, froggy.z);
+    scale(2);
+    model(frog);
 
     cursor(CROSS);
+
+    console.log(froggy.x);
+
+    // froggy.x += froggy.speed;
+    // froggy.y += froggy.speed;
+    // froggy.z += froggy.speed;
+    push();
+    // Turn the camera left and right, called "panning".
+    cam.pan(delta);
+
+    // Switch directions every 120 frames.
+    if (frameCount % 120 === 0) {
+        delta *= -1;
+    }
+    pop();
 }
