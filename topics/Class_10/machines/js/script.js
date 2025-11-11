@@ -1,46 +1,53 @@
-/**
- * Machines
- * Pippin Barr
- * 
- * A starting point for a project that displays different machines
- * on the canvas. Eventually I'd like to be able to drag and drop
- * items onto the machines and have them act in different ways.
- * For now I'm happy to just show that they're distinct.
- */
+const machineWidth = 100;
+const machineHeight = 100;
 
-"use strict";
+// An array of machines data
+let machines = [
+    {
+        x: 0,
+        y: 100,
+        width: machineWidth,
+        height: machineHeight,
+        fill: "#ff4400",
+    },
+    {
+        x: 150,
+        y: 100,
+        width: machineWidth,
+        height: machineHeight,
+        fill: "#bbbbff",
+    },
+    {
+        x: 300,
+        y: 100,
+        width: machineWidth,
+        height: machineHeight,
+        fill: "#777777",
+    },
+    {
+        x: 200,
+        y: 50,
+        width: machineWidth,
+        height: machineHeight,
+        fill: "#374bcdff"
+    }
+];
 
-/**
- * Create the canvas
- */
 function setup() {
     createCanvas(400, 200);
 }
 
-/**
- * Display the three machines
- */
 function draw() {
     background(0);
+    for (let machine of machines) {
+        drawMachine(machine);
+    }
+}
 
-    // Incinerator
+function drawMachine(machine) {
     push();
     noStroke();
-    fill("#ff4400");
-    rect(0, 100, 100, 100);
-    pop();
-
-    // Freezer
-    push();
-    noStroke();
-    fill("#bbbbff");
-    rect(150, 100, 100, 100);
-    pop();
-
-    // Crusher
-    push();
-    noStroke();
-    fill("#777777");
-    rect(300, 100, 100, 100);
+    fill(machine.fill);
+    rect(machine.x, machine.y, machine.width, machine.height);
     pop();
 }
