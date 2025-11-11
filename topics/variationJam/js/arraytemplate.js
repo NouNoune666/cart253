@@ -52,10 +52,11 @@ const NUM_FLIES = 10; // how many to start with (doesn't change over time)
  */
 function setup() {
     createCanvas(640, 480);
-    flies.push(createFly());
-    for (let i = 0; i < NUM_FLIES && eaten === true; i++) {
+    for (let i = 0; i < NUM_FLIES; i++) {
         flies.push(createFly());
     }
+
+
 }
 
 function createFly() {
@@ -187,7 +188,6 @@ function checkTongueFlyOverlap() {
         const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
         // Check if it's an overlap
         const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
-        return;
         if (eaten) {
             // Reset the fly
             resetFly(fly);
