@@ -18,6 +18,11 @@
 
 9. Fly falls down instead of resetting.
 
+Other ideas:
+
+1. How about a dialogue between a frog and a fly. Use Json for this.
+Inspo: https://editor.p5js.org/pippinbarr/sketches/_OzYzejOQ
+
 # Final selection:
 
 1. Each time the frog eats a fly, it grows until it takes the whole screen. Loops. THICC FROG
