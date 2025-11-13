@@ -28,4 +28,5 @@ Inspo: https://editor.p5js.org/pippinbarr/sketches/_OzYzejOQ
 1. Each time the frog eats a fly, it grows until it takes the whole screen. Loops. THICC FROG
 2. A gradiant that changes every time a fly is eaten. This one is just nice to look at. A WORK OF ART + When you place the tongue (or frog) on the flies they simply change color. Inspo: https://editor.p5js.org/pippinbarr/sketches/Yc4eMdFyH. COLOR ME SUPRISED
 3. Each time a fly is eaten, their level of buziness augments until they die. STRESSED OUT
-4.
+4. You have 5 seconds to eat the most flies 
+5. A huge tongue that keeps moving and as a fly you must not touch it

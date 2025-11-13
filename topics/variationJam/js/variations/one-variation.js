@@ -11,7 +11,7 @@ const oneFrog = {
         x: undefined,
         y: 480,
         size: 20,
-        speed: 40, // I made the tongue a lot faster
+        speed: 40, // I made the tongue faster
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     }
@@ -33,7 +33,7 @@ function onePreload() {
  */
 function oneSetup() {
     flies.push(createOneFly());
-    for (let i = 0; i < NUM_FLIES === true; i++) { // happens one time
+    for (let i = 0; i < NUM_FLIES; i++) { // happens one time
         flies.push(createOneFly());
     }
 }
@@ -58,7 +58,7 @@ function oneDraw() {
 }
 
 /**
- * This is called whenever the escape key is pressed while the "one" variation is active
+ * This is called whenever the escape key is pressed while the "one" variation is active, player is directed back to the main menu.
  */
 function oneKeyPressed(event) {
     if (event.keyCode === 27) {
@@ -81,10 +81,10 @@ function oneMousePressed() {
  */
 function createOneFly() {
     return {
-        x: 0,
+        x: random(-3, 0),
         y: random(17, height - 100),
         size: random(7, 16),
-        speed: random(1, 5),
+        speed: random(3, 7),
     };
 }
 
@@ -118,10 +118,10 @@ function drawOneFly(fly) {
  */
 function resetOneFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
-    fly.x = 0;
+    fly.x = random(-3, 0);
     fly.y = random(17, height - 100);
     fly.size = random(7, 16);
-    fly.speed = random(1, 5);
+    fly.speed = random(3, 7);
 
 }
 
@@ -202,11 +202,12 @@ function checkOneTongueFlyOverlap() {
             flies.splice(flyIndex, 1);
             // Bring back the tongue
             oneFrog.tongue.state = "inbound";
+
         }
     }
 }
 
-
+console.log(flies.length)
 function oneEnd() {
     if (flies.length === 0) {
 
@@ -216,9 +217,9 @@ function oneEnd() {
         noStroke();
         fill(255);
         textFont(font);
-        textSize(50);
+        textSize(30);
         textAlign(CENTER);
-        text('you ate all the flies', width / 2, height / 2);
+        text('you ate all the flies\ncongrats i guess\nesc for main menu', width / 2, height / 2);
         pop();
     }
 
