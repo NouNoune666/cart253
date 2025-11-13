@@ -11,10 +11,6 @@
 
 let state = "menu";
 
-
-function preload() {
-    onePreload();
-}
 /**
  * Create the canvas
 */
@@ -31,8 +27,8 @@ function draw() {
         case "menu":
             menuDraw();
             break;
-        case "one-variation":
-            oneDraw();
+        case "red-variation":
+            redDraw();
             break
         case "green-variation":
             greenDraw();
@@ -52,8 +48,8 @@ function mousePressed() {
         case "menu":
             menuMousePressed();
             break;
-        case "one-variation":
-            oneMousePressed();
+        case "red-variation":
+            redMousePressed();
             break
         case "green-variation":
             greenMousePressed();
@@ -73,8 +69,8 @@ function keyPressed(event) {
         case "menu":
             menuKeyPressed(event);
             break;
-        case "one-variation":
-            oneKeyPressed(event);
+        case "red-variation":
+            redKeyPressed(event);
             break
         case "green-variation":
             greenKeyPressed(event);
