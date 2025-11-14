@@ -1,4 +1,4 @@
-// An object for our () frog
+// An object for our frog
 const Frog = {
     // The frog's body has a position and size
     body: {
@@ -17,16 +17,14 @@ const Frog = {
     }
 };
 
-
 let frogStartColor = undefined; // Our frog's healthy color
 let frogEndColor = undefined; // Our frog's sick color
 let bgStartColor = undefined; // Our background's start color
 let bgEndColor = undefined; // Our background's end color
-let score = 0;
+let score = 0; // score starts at zero and goes up
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 200; // The number of flies that we begin with 
 let font; // our custom font
-
 
 /**
  * Preloads font 
@@ -40,7 +38,7 @@ function preload() {
  */
 function setup() {
     createCanvas(500, 500);
-    for (let i = 0; i < NUM_FLIES; i++) { // happens  time
+    for (let i = 0; i < NUM_FLIES; i++) {
         flies.push(createFly());
     }
     bgStartColor = color(224, 114, 212); // pretty pink
@@ -54,7 +52,7 @@ function setup() {
 function draw() {
     let progress = map(score, 0, NUM_FLIES, 0, 1) // from 0 to 200 = from 0 to 1
     let bgColor = lerpColor(bgStartColor, bgEndColor, progress)
-    background(bgColor); // changing color
+    background(bgColor); // changing background color
 
     // a loop that goes through the each fly in the flies array to draw and move them
     for (const fly of flies) {
@@ -93,7 +91,7 @@ function keyPressed() {
  */
 function createFly() {
     return {
-        x: random(-500, 0), // Stars very off screen more more natural flying movements
+        x: random(-500, 0), // Starts far off-screen so the flies enter the canvas naturally
         y: random(17, height - 100),
         size: random(8, 17),
         speed: random(3, 7),
@@ -141,7 +139,7 @@ function drawFly(fly) {
  * Resets the fly to the left with a random y and x
  */
 function resetFly(fly) {
-    // gives new speed, size and y to the flies so that they don't stay the same when reset
+    // Gives the fly a new speed and y-position so it doesn't look identical when reset
     fly.x = random(-3, 0);
     fly.y = random(17, height - 100);
     // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
@@ -150,7 +148,7 @@ function resetFly(fly) {
 }
 
 /**
- * Moves the frog to the mouse X position
+ * Moves the frog to match the mouse's X position
  */
 function moveFrog() {
     Frog.body.x = mouseX;
@@ -185,15 +183,13 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (
+ * Displays the tongue (tip and line connection) and the frog 
  */
 function drawFrog() {
     frogStartColor = color("#00ff00"); // Our frog's healthy color
     frogEndColor = color("#7b9d7bff"); // Our frog's sick color
     let progress = map(score, 0, NUM_FLIES, 0, 1) // from 0 to 200 = from 0 to 1
     let frogColor = lerpColor(frogStartColor, frogEndColor, progress)
-
-
 
     // Draw the tongue tip
     push();
@@ -229,7 +225,7 @@ function drawFrog() {
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
-    for (const fly of flies) { // for each fly inside the flies array, check this
+    for (const fly of flies) { // for each fly inside the flies array, check for overlap
         // Get distance from tongue to fly
         const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
         // Check if it's an overlap
@@ -241,13 +237,13 @@ function checkTongueFlyOverlap() {
             flies.splice(flyIndex, 1);
             // Bring back the tongue
             Frog.tongue.state = "inbound";
-            score += 1;
+            score += 1; // score goes up
         }
     }
 }
 
 /**
- * This function checks to see if there are no more flies left, if true displays text
+ * Checks if no flies remain; if so, displays the end message
  */
 function end() {
     console.log(flies.length)
