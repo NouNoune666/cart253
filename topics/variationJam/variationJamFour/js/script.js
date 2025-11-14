@@ -18,20 +18,18 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 200; // The number of flies that we begin with (+1)
+const NUM_FLIES = 3; // The number of flies that we begin with (+1)
+let font; // our custom font
 
-let seconds = 5;
-let font;
-let gameIsGaming = true; // This determines when we are in game mode (the opposite of game mode is end mode)
-let score = 0;
-
+/**
+ * Preloads font 
+ */
 function preload() {
     font = loadFont('assets/inconsolata.otf');
 }
 
-
 /**
- * This will be called just before the  variation starts
+ * Creates canvas and flies once at the beginning
  */
 function setup() {
     createCanvas(500, 500);
@@ -42,41 +40,28 @@ function setup() {
 }
 
 /**
- * This is called every frame when variation "" is active
+ * This is called every frame
  */
 function draw() {
     background("#87ceeb"); // a nice blue sky
-    if (gameIsGaming === true) {
 
-        moveTongue(); // Moves the tongue
-        checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
-        drawTongue();
-    }
     // a loop that goes through the each fly in the flies array to draw and move them
-
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
-    secondsLeft();
 
     drawFrog(); // Draws the frogs
     moveFrog();  // Moves the frogs
-    timeGoesBy();
+    moveTongue(); // Moves the tongue
+    checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
+    end(); // Checks to see if there is zero flies left
+    score(); // Counts number of flies eaten
 
 }
 
 /**
- * This is called whenever the escape key is pressed while the "" variation is active, player is directed back to the main menu.
- */
-function keyPressed(event) {
-    if (event.keyCode === 27) {
-        state = "menu";
-    }
-}
-
-/**
- * This is called whenever the mouse is pressed while the '''' variation is active. The tongue goes out and in depending on the state.
+ * This is called whenever the mouse is pressed. The tongue goes out and in depending on the state.
  */
 function mousePressed() {
     if (Frog.tongue.state === "idle") {
@@ -84,19 +69,26 @@ function mousePressed() {
     }
 }
 
+/**
+ * When esc is pressed, the game starts over
+ */
+function keyPressed() {
+    if (keyCode === 27) {
+        location.reload(); // this reloads the whole page, neat!
+    }
+}
 
 /**
  * Creates the flies with random y, sizes and speeds
  */
 function createFly() {
     return {
-        x: random(-3, 0),
+        x: random(-500, 0), // Stars very off screen more more natural flying movements
         y: random(17, height - 100),
         size: random(8, 17),
         speed: random(3, 7),
     };
 }
-
 
 /**
  * Moves the fly according to its speed.
@@ -111,20 +103,32 @@ function moveFly(fly) {
     }
 }
 
-
 /**
- * Draws the fly as a black circle
+ * Draws the fly as a black circle and two white wings
  */
 function drawFly(fly) {
+    // back wing
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
+    pop();
+    // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
+    // Wing 1
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    pop();
 }
 
 /**
- * Resets the fly to the left with a random y
+ * Resets the fly to the left with a random y and x
  */
 function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
@@ -171,20 +175,9 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (body)
+ * Displays the tongue (tip and line connection) and the frog (
  */
 function drawFrog() {
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
-    pop();
-}
-
-/**Moved the tongue out of draw frog so that it dissapears at the end */
-function drawTongue() {
     // Draw the tongue tip
     push();
     fill("#ff0000");
@@ -198,6 +191,21 @@ function drawTongue() {
     strokeWeight(Frog.tongue.size);
     line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
     pop();
+
+    // Draw the frog's body
+    push();
+    fill("#00ff00");
+    noStroke();
+    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
+    pop();
+
+    // Draw the frog's eyes
+    push();
+    fill("#000000ff");
+    noStroke();
+    ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
+    ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
+    pop();
 }
 
 /**
@@ -209,89 +217,47 @@ function checkTongueFlyOverlap() {
         const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
         // Check if it's an overlap
         const eaten = (d < Frog.tongue.size / 2 + fly.size / 2);
-        console.log(score);
+
         if (eaten) {
             // Removes a fly when eaten instead of resetting it
-            // const flyIndex = flies.indexOf(fly)
-            // flies.splice(flyIndex, 1);
-            resetFly(fly);
-            score += 1;
+            const flyIndex = flies.indexOf(fly)
+            flies.splice(flyIndex, 1);
             // Bring back the tongue
             Frog.tongue.state = "inbound";
         }
     }
 }
 
-function secondsLeft() {
-    if (frameCount % 120 === 0) {
-        seconds += -1
-    }
-    // console.log(seconds)
-}
-
-function timeGoesBy() {
-
-    if (seconds >= 0) {
-        push();
-        noStroke();
-        fill(255);
-        textFont(font);
-        textSize(30);
-        textAlign(LEFT);
-        text(seconds + ' seconds left', 10, 30);
-        pop();
-
-        push();
-        noStroke();
-        fill(255);
-        textFont(font);
-        textSize(30);
-        textAlign(LEFT);
-        text('flies eaten: ' + score + '!', width / 2, height - 20);
-        pop();
-    }
-
-
-    if (seconds <= 0 && score != 1) {
-        end();
-        gameIsGaming = false
-    }
-    if (seconds <= 0 && score === 1) {
-        endOneFly();
-        gameIsGaming = false;
-    }
-
-}
-
+/**
+ * This function checks to see if there are no more flies left, if true displays text
+ */
 function end() {
+    console.log(flies.length)
+    if (flies.length === 0) {
+        push();
+        noStroke();
+        fill(255);
+        textFont(font);
+        textSize(30);
+        textAlign(CENTER, CENTER);
+        text('you ate all the flies\ncongrats i guess\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
+        pop();
+    }
+}
 
+/**
+ * Displays the score (text)
+ */
+function score() {
     push();
     noStroke();
     fill(255);
     textFont(font);
     textSize(30);
-    textAlign(CENTER, CENTER);
-    text('you ate ' + score + ' flies\nand your tongue was cut off\nsorry :(\n', width / 2, height / 2);
+    textAlign(LEFT);
+    text('number of flies left ' + flies.length, 10, 30);
     pop();
-
-
 }
-
-function endOneFly() {
-
-    push();
-    noStroke();
-    fill(255);
-    textFont(font);
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    text('you ate 1 fly\nand your tongue was cut off\nsorry :(\n', width / 2, height / 2);
-    pop();
-
-
-}
-
-
 
 
 
