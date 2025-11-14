@@ -1,4 +1,4 @@
-// An object for our frog
+// An object for our () frog
 const Frog = {
     // The frog's body has a position and size
     body: {
@@ -10,76 +10,73 @@ const Frog = {
     tongue: {
         x: undefined,
         y: 480,
-        size: 40, // Made tongue bigger so that it is easier to catch flies, until you get to the last one
-        speed: 40, // I made the tongue a bit faster
+        size: 20,
+        speed: 40, // I made the tongue faster
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     }
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 200; // The number of flies that we begin with 
-let font; // our custom font
-let oneLessLonelyFly = false; // this is only true when there is one fly left
-let showMeanText = false; // Will be activated later on when oneLessLonelyFly is tru
-let randomMean; // Our JSON
+const NUM_FLIES = 200; // The number of flies that we begin with (+1)
 
-/**
- * Preloads font and JSON file
- */
+let seconds = 5;
+let font;
+let gameIsGaming = true; // This determines when we are in game mode (the opposite of game mode is end mode)
+let score = 0;
+
 function preload() {
     font = loadFont('assets/inconsolata.otf');
-    meanFly = loadJSON("assets/data/meanFly.json");
 }
 
 
 /**
- * Creates canvas and flies once at the beginning
+ * This will be called just before the  variation starts
  */
 function setup() {
     createCanvas(500, 500);
     flies.push(createFly());
-    for (let i = 0; i < NUM_FLIES; i++) {
+    for (let i = 0; i < NUM_FLIES; i++) { // happens  time
         flies.push(createFly());
     }
 }
 
 /**
- * This is called every frame
+ * This is called every frame when variation "" is active
  */
 function draw() {
     background("#87ceeb"); // a nice blue sky
+    if (gameIsGaming === true) {
 
+        moveTongue(); // Moves the tongue
+        checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
+        drawTongue();
+    }
     // a loop that goes through the each fly in the flies array to draw and move them
+
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
+    secondsLeft();
 
     drawFrog(); // Draws the frogs
     moveFrog();  // Moves the frogs
-    moveTongue(); // Moves the tongue
+    timeGoesBy();
 
-    // if there is more than one fly left, calls the regular checkTongueFlyOverlap, if not calls the mean one
-    if (oneLessLonelyFly === false) {
-        checkTongueFlyOverlap();
-    }
-    else {
-        checkTongueFlyOverlapMean();
-    }
+}
 
-    end(); // Constantly checks to see if there is zero flies left
-    score(); // Counts number of flies eaten
-
-    // When showMeanText becomes true (when there's only one fly left), the mean text function is called
-    if (showMeanText) {
-        meanText();
+/**
+ * This is called whenever the escape key is pressed while the "" variation is active, player is directed back to the main menu.
+ */
+function keyPressed(event) {
+    if (event.keyCode === 27) {
+        state = "menu";
     }
 }
 
-
 /**
- * This is called whenever the mouse is pressed. The tongue goes out and in depending on the state.
+ * This is called whenever the mouse is pressed while the '''' variation is active. The tongue goes out and in depending on the state.
  */
 function mousePressed() {
     if (Frog.tongue.state === "idle") {
@@ -87,26 +84,19 @@ function mousePressed() {
     }
 }
 
-/**
- * When esc is pressed, the game starts over
- */
-function keyPressed() {
-    if (keyCode === 27) {
-        location.reload(); // this reloads the whole page, neat!
-    }
-}
 
 /**
  * Creates the flies with random y, sizes and speeds
  */
 function createFly() {
     return {
-        x: random(-500, 0), // Stars very off screen more more natural flying movements
+        x: random(-3, 0),
         y: random(17, height - 100),
         size: random(8, 17),
         speed: random(3, 7),
     };
 }
+
 
 /**
  * Moves the fly according to its speed.
@@ -121,33 +111,20 @@ function moveFly(fly) {
     }
 }
 
+
 /**
- * Draws the fly as a black circle and two white wings
+ * Draws the fly as a black circle
  */
 function drawFly(fly) {
-    // back wing
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
-    pop();
-    // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
-    // Wing 1
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x, fly.y - 4, fly.size / 2);
-    pop();
 }
 
-
 /**
- * Resets the fly to the left with a random x and y
+ * Resets the fly to the left with a random y
  */
 function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
@@ -155,6 +132,7 @@ function resetFly(fly) {
     fly.y = random(17, height - 100);
     // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
     fly.speed = random(3, 7);
+
 }
 
 /**
@@ -193,9 +171,20 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog 
+ * Displays the tongue (tip and line connection) and the frog (body)
  */
 function drawFrog() {
+
+    // Draw the frog's body
+    push();
+    fill("#00ff00");
+    noStroke();
+    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
+    pop();
+}
+
+/**Moved the tongue out of draw frog so that it dissapears at the end */
+function drawTongue() {
     // Draw the tongue tip
     push();
     fill("#ff0000");
@@ -209,25 +198,10 @@ function drawFrog() {
     strokeWeight(Frog.tongue.size);
     line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
     pop();
-
-    // Draw the frog's body
-    push();
-    fill("#00ff00");
-    noStroke();
-    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
-    pop();
-
-    // Draw the frog's eyes
-    push();
-    fill("#000000ff");
-    noStroke();
-    ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
-    ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
-    pop();
 }
 
 /**
- * Handles the tongue overlapping the fly (when more than one fly left)
+ * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
     for (const fly of flies) { // for each fly inside the flies array, check this
@@ -235,75 +209,89 @@ function checkTongueFlyOverlap() {
         const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
         // Check if it's an overlap
         const eaten = (d < Frog.tongue.size / 2 + fly.size / 2);
-
+        console.log(score);
         if (eaten) {
             // Removes a fly when eaten instead of resetting it
-            const flyIndex = flies.indexOf(fly)
-            flies.splice(flyIndex, 1);
+            // const flyIndex = flies.indexOf(fly)
+            // flies.splice(flyIndex, 1);
+            resetFly(fly);
+            score += 1;
             // Bring back the tongue
             Frog.tongue.state = "inbound";
         }
     }
 }
 
-/**
- * Handles the tongue overlapping the fly (when one fly left)
- */
-function checkTongueFlyOverlapMean() {
-    console.log('here');
-    for (const fly of flies) { // for each fly inside the flies array, check this
-        // Get distance from tongue to fly
-        const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
-        // Check if it's an overlap
-        const eaten = (d < Frog.tongue.size / 2 + fly.size / 2);
-
-        if (eaten) {
-            // tongue is no longer brought back down
-            // Chooses insult in JSON file
-            randomMean = random(meanFly.meanies);
-            showMeanText = true;
-        }
+function secondsLeft() {
+    if (frameCount % 120 === 0) {
+        seconds += -1
     }
+    // console.log(seconds)
 }
 
-/**
- * Displays random insults from JSON file
- */
-function meanText() {
+function timeGoesBy() {
+
+    if (seconds >= 0) {
+        push();
+        noStroke();
+        fill(255);
+        textFont(font);
+        textSize(30);
+        textAlign(LEFT);
+        text(seconds + ' seconds left', 10, 30);
+        pop();
+
+        push();
+        noStroke();
+        fill(255);
+        textFont(font);
+        textSize(30);
+        textAlign(LEFT);
+        text('flies eaten: ' + score + '!', width / 2, height - 20);
+        pop();
+    }
+
+
+    if (seconds <= 0 && score != 1) {
+        end();
+        gameIsGaming = false
+    }
+    if (seconds <= 0 && score === 1) {
+        endOneFly();
+        gameIsGaming = false;
+    }
+
+}
+
+function end() {
+
     push();
     noStroke();
     fill(255);
     textFont(font);
     textSize(30);
     textAlign(CENTER, CENTER);
-    text(randomMean, width / 2, height / 2);
+    text('you ate ' + score + ' flies\nand your tongue was cut off\nsorry :(\n', width / 2, height / 2);
     pop();
+
+
 }
 
-/**
- * Is triggered when there's only one fly left
- */
-function end() {
-    console.log(flies.length)
-    if (flies.length === 1) {
-        oneLessLonelyFly = true; // Activates the checkTongueFlyOverlapMean() function
+function endOneFly() {
 
-    }
-}
-
-/**
- * Displays number of flies left on screen
- */
-function score() {
     push();
     noStroke();
     fill(255);
     textFont(font);
     textSize(30);
-    textAlign(LEFT);
-    text('number of flies left: ' + flies.length, 10, 30);
+    textAlign(CENTER, CENTER);
+    text('you ate 1 fly\nand your tongue was cut off\nsorry :(\n', width / 2, height / 2);
     pop();
+
+
 }
+
+
 
 
 
