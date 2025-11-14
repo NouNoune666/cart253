@@ -29,7 +29,7 @@ let randomMean; // Our JSON
  */
 function preload() {
     font = loadFont('assets/inconsolata.otf');
-    meanFly = loadJSON("assets/data/meanFly.JSON");
+    meanFly = loadJSON("assets/data/meanFly.json");
 }
 
 
