@@ -232,7 +232,6 @@ function checkTongueFlyOverlapMean() {
         if (eaten) {
 
             // Bring back the tongue
-            Frog.tongue.state = "inbound";
             randomMean = random(meanFly.meanies);
             showMeanText = true;
         }
