@@ -19,17 +19,17 @@ const Frog = {
 
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 199; // The number of flies that we begin with (+1)
+let font; // our custom font
 
-
-let font;
-
+/**
+ * Preloads font 
+ */
 function preload() {
     font = loadFont('assets/inconsolata.otf');
 }
 
-
 /**
- * This will be called just before the  variation starts
+ * Creates canvas and flies once at the beginning
  */
 function setup() {
     createCanvas(500, 500);
@@ -40,7 +40,7 @@ function setup() {
 }
 
 /**
- * This is called every frame when variation "" is active
+ * This is called every frame
  */
 function draw() {
     background("#87ceeb"); // a nice blue sky
@@ -56,20 +56,12 @@ function draw() {
     moveTongue(); // Moves the tongue
     checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
     end(); // Checks to see if there is zero flies left
-    score();
+    score(); // Counts number of flies eaten
+
 }
 
 /**
- * This is called whenever the escape key is pressed while the "" variation is active, player is directed back to the main menu.
- */
-function keyPressed(event) {
-    if (event.keyCode === 27) {
-        state = "menu";
-    }
-}
-
-/**
- * This is called whenever the mouse is pressed while the '''' variation is active. The tongue goes out and in depending on the state.
+ * This is called whenever the mouse is pressed. The tongue goes out and in depending on the state.
  */
 function mousePressed() {
     if (Frog.tongue.state === "idle") {
@@ -77,19 +69,17 @@ function mousePressed() {
     }
 }
 
-
 /**
  * Creates the flies with random y, sizes and speeds
  */
 function createFly() {
     return {
-        x: random(-3, 0),
+        x: random(-500, 0), // Stars very off screen more more natural flying movements
         y: random(17, height - 100),
         size: random(8, 17),
         speed: random(3, 7),
     };
 }
-
 
 /**
  * Moves the fly according to its speed.
@@ -105,18 +95,31 @@ function moveFly(fly) {
 }
 
 /**
- * Draws the fly as a black circle
+ * Draws the fly as a black circle and two white wings
  */
 function drawFly(fly) {
+    // back wing
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
+    pop();
+    // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
+    // Wing 1
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    pop();
 }
 
 /**
- * Resets the fly to the left with a random y
+ * Resets the fly to the left with a random y and x
  */
 function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
@@ -163,7 +166,7 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (body)
+ * Displays the tongue (tip and line connection) and the frog (
  */
 function drawFrog() {
     // Draw the tongue tip
@@ -185,6 +188,14 @@ function drawFrog() {
     fill("#00ff00");
     noStroke();
     ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
+    pop();
+
+    // Draw the frog's eyes
+    push();
+    fill("#000000ff");
+    noStroke();
+    ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
+    ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
     pop();
 }
 
@@ -208,12 +219,12 @@ function checkTongueFlyOverlap() {
     }
 }
 
+/**
+ * This function checks to see if there are no more flies left, if true displays text
+ */
 function end() {
     console.log(flies.length)
     if (flies.length === 0) {
-
-        console.log("no more flies");
-
         push();
         noStroke();
         fill(255);
@@ -223,9 +234,11 @@ function end() {
         text('> you ate all the flies\n> congrats i guess\n> back button for main menu', width / 2, height / 2);
         pop();
     }
-
 }
 
+/**
+ * Displays the score (text)
+ */
 function score() {
     push();
     noStroke();
@@ -233,7 +246,7 @@ function score() {
     textFont(font);
     textSize(30);
     textAlign(LEFT);
-    text(flies.length + ' flies left', 10, 30);
+    text('number of flies left ' + flies.length, 10, 30);
     pop();
 }
 

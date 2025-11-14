@@ -19,8 +19,6 @@ const Frog = {
 
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 200; // The number of flies that we begin with 
-
-
 let font; // our custom font
 let oneLessLonelyFly = false; // this is only true when there is one fly left
 let showMeanText = false; // Will be activated later on when oneLessLonelyFly is tru
@@ -218,7 +216,6 @@ function drawFrog() {
     ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
     ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
     pop();
-
 }
 
 /**
