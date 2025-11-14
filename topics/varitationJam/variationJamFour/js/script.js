@@ -18,14 +18,17 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 3; // The number of flies that we begin with (+1)
-let oneLessLonelyFly = false;
+const NUM_FLIES = 5; // The number of flies that we begin with (+1)
 
 
 let font;
+let oneLessLonelyFly = false;
+let showMeanText = false;
+let randomMean;
 
 function preload() {
     font = loadFont('assets/inconsolata.otf');
+    meanFly = loadJSON("assets/data/meanFly.json");
 }
 
 
@@ -55,11 +58,17 @@ function draw() {
     drawFrog(); // Draws the frogs
     moveFrog();  // Moves the frogs
     moveTongue(); // Moves the tongue
-    falseEnding(); // Checks to see if there is zero flies left
-    score();
-
     if (oneLessLonelyFly === false) {
-        checkTongueFlyOverlap(); // Checks the overlap between frog and tongue    
+        checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
+    }
+    else {
+        checkTongueFlyOverlapMean();
+    }
+
+    end(); // Checks to see if there is zero flies left
+    score();
+    if (showMeanText) {
+        meanText();
     }
 }
 
@@ -212,11 +221,51 @@ function checkTongueFlyOverlap() {
     }
 }
 
-function falseEnding() {
+function checkTongueFlyOverlapMean() {
+    console.log('here');
+    for (const fly of flies) { // for each fly inside the flies array, check this
+        // Get distance from tongue to fly
+        const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
+        // Check if it's an overlap
+        const eaten = (d < Frog.tongue.size / 2 + fly.size / 2);
+
+        if (eaten) {
+
+            // Bring back the tongue
+            Frog.tongue.state = "inbound";
+            randomMean = random(meanFly.meanies);
+            showMeanText = true;
+        }
+    }
+}
+
+function meanText() {
+
+    push();
+    noStroke();
+    fill(255);
+    textFont(font);
+    textSize(30);
+    textAlign(CENTER, CENTER);
+    text(randomMean, width / 2, height / 2);
+    pop();
+}
+
+function end() {
     console.log(flies.length)
     if (flies.length === 1) {
+        oneLessLonelyFly = true;
 
-        oneLessLonelyFly = true
+        // console.log("no more flies");
+
+        // push();
+        // noStroke();
+        // fill(255);
+        // textFont(font);
+        // textSize(30);
+        // textAlign(CENTER, CENTER);
+        // text('> you ate all the flies\n> congrats i guess\n> back button for main menu', width / 2, height / 2);
+        // pop();
     }
 
 }
