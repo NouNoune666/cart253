@@ -16,7 +16,17 @@ body {
     font-family: "nintendoFont", serif;
     background: #0687e48e;
     font-family: "nintendoFont", serif;
-    font-size: 40px;
+}
+
+h1 {
+    font-size: 200px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 150px;
+    margin-top: 0px;
+
 }
 
 
@@ -28,13 +38,17 @@ body {
     font-family: "nintendoFont", serif;
     text-align: center;
     align-items: center;
-    max-width: 400px;
+    max-width: 1000px;
     padding: 30px;
 }
 
 #menu a {
     text-decoration: none;
     color: black;
+    display: block;
+    /*each link behaves like its own line*/
+    margin-bottom: 15px;
+    font-size: 60px;
 }
 
 #menu a:hover {
