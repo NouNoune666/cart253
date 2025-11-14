@@ -18,12 +18,12 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 200; // The number of flies that we begin with
+const NUM_FLIES = 199; // The number of flies that we begin with (+1)
 
 
 let font;
 
-function Preload() {
+function preload() {
     font = loadFont('assets/inconsolata.otf');
 }
 
@@ -56,6 +56,7 @@ function draw() {
     moveTongue(); // Moves the tongue
     checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
     end(); // Checks to see if there is zero flies left
+    score();
 }
 
 /**
@@ -84,7 +85,7 @@ function createFly() {
     return {
         x: random(-3, 0),
         y: random(17, height - 100),
-        size: random(7, 16),
+        size: random(8, 17),
         speed: random(3, 7),
     };
 }
@@ -121,7 +122,7 @@ function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
     fly.x = random(-3, 0);
     fly.y = random(17, height - 100);
-    fly.size = random(7, 16);
+    // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
     fly.speed = random(3, 7);
 
 }
@@ -203,12 +204,12 @@ function checkTongueFlyOverlap() {
             flies.splice(flyIndex, 1);
             // Bring back the tongue
             Frog.tongue.state = "inbound";
-
         }
     }
 }
 
 function end() {
+    console.log(flies.length)
     if (flies.length === 0) {
 
         console.log("no more flies");
@@ -218,10 +219,23 @@ function end() {
         fill(255);
         textFont(font);
         textSize(30);
-        textAlign(CENTER);
-        text('you ate all the flies\ncongrats i guess\nesc for main menu', width / 2, height / 2);
+        textAlign(CENTER, CENTER);
+        text('> you ate all the flies\n> congrats i guess\n> back button for main menu', width / 2, height / 2);
         pop();
     }
 
 }
+
+function score() {
+    push();
+    noStroke();
+    fill(255);
+    textFont(font);
+    textSize(30);
+    textAlign(LEFT);
+    text(flies.length + ' flies left', 10, 30);
+    pop();
+}
+
+
 
