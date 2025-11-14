@@ -11,15 +11,22 @@ const Frog = {
         x: undefined,
         y: 480,
         size: 20,
-        speed: 40, // I made the tongue faster
+        speed: 50, // I made the tongue faster
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     }
 };
 
+
+let frogStartColor = undefined; // Our frog's healthy color
+let frogEndColor = undefined; // Our frog's sick color
+let bgStartColor = undefined; // Our background's start color
+let bgEndColor = undefined; // Our background's end color
+let score = 0;
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 199; // The number of flies that we begin with (+1)
+const NUM_FLIES = 200; // The number of flies that we begin with 
 let font; // our custom font
+
 
 /**
  * Preloads font 
@@ -33,17 +40,21 @@ function preload() {
  */
 function setup() {
     createCanvas(500, 500);
-    flies.push(createFly());
     for (let i = 0; i < NUM_FLIES; i++) { // happens  time
         flies.push(createFly());
     }
+    bgStartColor = color(224, 114, 212); // pretty pink
+    bgEndColor = color(79, 84, 10);       // vomit green
+
 }
 
 /**
  * This is called every frame
  */
 function draw() {
-    background("#87ceeb"); // a nice blue sky
+    let progress = map(score, 0, NUM_FLIES, 0, 1) // from 0 to 200 = from 0 to 1
+    let bgColor = lerpColor(bgStartColor, bgEndColor, progress)
+    background(bgColor); // changing color
 
     // a loop that goes through the each fly in the flies array to draw and move them
     for (const fly of flies) {
@@ -56,25 +67,24 @@ function draw() {
     moveTongue(); // Moves the tongue
     checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
     end(); // Checks to see if there is zero flies left
-    score(); // Counts number of flies eaten
+    DisplayScore(); // Counts number of flies eaten
 
 }
 
 /**
- * This is called whenever the mouse is pressed. The tongue goes out and in depending on the state.
- */
-function mousePressed() {
-    if (Frog.tongue.state === "idle") {
-        Frog.tongue.state = "outbound";
-    }
-}
-
-/**
- * When esc is pressed, the game starts over
+ * This is called whenever a certain key is pressed.
  */
 function keyPressed() {
+    // esc
     if (keyCode === 27) {
         location.reload(); // this reloads the whole page, neat!
+    }
+
+    // spacebar, 
+    if (keyCode === 32) {
+        if (Frog.tongue.state === "idle") {
+            Frog.tongue.state = "outbound"; // The tongue goes out and in depending on the state.
+        }
     }
 }
 
@@ -178,6 +188,13 @@ function moveTongue() {
  * Displays the tongue (tip and line connection) and the frog (
  */
 function drawFrog() {
+    frogStartColor = color("#00ff00"); // Our frog's healthy color
+    frogEndColor = color("#7b9d7bff"); // Our frog's sick color
+    let progress = map(score, 0, NUM_FLIES, 0, 1) // from 0 to 200 = from 0 to 1
+    let frogColor = lerpColor(frogStartColor, frogEndColor, progress)
+
+
+
     // Draw the tongue tip
     push();
     fill("#ff0000");
@@ -194,7 +211,7 @@ function drawFrog() {
 
     // Draw the frog's body
     push();
-    fill("#00ff00");
+    fill(frogColor);
     noStroke();
     ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
     pop();
@@ -224,6 +241,7 @@ function checkTongueFlyOverlap() {
             flies.splice(flyIndex, 1);
             // Bring back the tongue
             Frog.tongue.state = "inbound";
+            score += 1;
         }
     }
 }
@@ -240,7 +258,7 @@ function end() {
         textFont(font);
         textSize(30);
         textAlign(CENTER, CENTER);
-        text('you ate all the flies\ncongrats\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
+        text('you ate all the flies\nyou now want to vomit\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
         pop();
     }
 }
@@ -248,14 +266,14 @@ function end() {
 /**
  * Displays the score (text)
  */
-function score() {
+function DisplayScore() {
     push();
     noStroke();
     fill(255);
     textFont(font);
     textSize(30);
     textAlign(LEFT);
-    text('number of flies left ' + flies.length, 10, 30);
+    text('number of flies left: ' + flies.length, 10, 30);
     pop();
 }
 
