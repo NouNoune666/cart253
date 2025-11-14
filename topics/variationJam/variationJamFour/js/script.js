@@ -19,8 +19,7 @@ let flies = []; // an array that holds many flies
 const NUM_FLIES = 25; // The number of flies 
 const NUM_snowFlakes = 200; // The number of snowflakes
 let font; // our custom font
-let score = 0; // number of flies eaten
-// flyBounce = false; // switches when the flies hit a wall
+let score = 0; // number of flies eaten at the beginning
 
 /**
  * Preloads font 
@@ -30,18 +29,17 @@ function preload() {
 }
 
 /**
- * Creates canvas and flies once at the beginning
+ * Creates canvas, flies and snowflakes once at the beginning
  */
 function setup() {
     createCanvas(500, 500);
-    flies.push(createFly());
-    for (let i = 0; i < NUM_FLIES; i++) { // happens  time
+
+    for (let i = 0; i < NUM_FLIES; i++) {
         flies.push(createFly());
     }
 
-    snow.push(createsnowFlake());
     for (let i = 0; i < NUM_snowFlakes; i++) {
-        snow.push(createsnowFlake());
+        snow.push(createSnowFlake());
         console.log(snow.length);
     }
 }
@@ -50,27 +48,26 @@ function setup() {
  * This is called every frame
  */
 function draw() {
-    background("#151981ff"); // a nice blue sky
+    background("#151981ff"); // a nice blue winter sky
 
-    // a loop that goes through the each fly in the flies array to draw and move them
+    // a loop that goes through each fly in the flies array to draw and move them
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
 
+    // a loop that goes through each snowflake in the snow array to draw and move them
     for (const snowFlake of snow) {
         drawSnow(snowFlake);
         moveSnow(snowFlake);
     }
 
     drawFrog(); // Draws the frog
-    drawPole();
+    drawPole(); // Draws the frozen pole
     moveFrog();  // Moves the frog
-    // moveTongue(); // Moves the tongue
-    checkFrogFlyOverlap(); // Checks the overlap between frog and tongue
-    end(); // Checks to see if there is zero flies left
+    checkFrogFlyOverlap(); // Checks the overlap between frog and flies (not the tongue anymore)
     scoreBoard(); // Counts number of flies eaten
-    backstory();
+    backstory(); // Writes text explaining a little backstory
 
 }
 
@@ -92,29 +89,32 @@ function createFly() {
         y: random(0, height),
         size: random(8, 17),
         speed: random(0.01, 0.4),
-        bounce: 'false',
+        bounce: 'false', // when this is changed, the flies movement change
     };
 }
 
 /**
  * Moves the fly according to its speed.
- * Resets the fly if it gets all the way to the right.
+ * Movement direction changes after hitting borders
  */
 function moveFly(fly) {
-    // Move the fly to the left
     for (const fly of flies) {
+        // Hits right wall
         if (fly.x > 500) {
             fly.bounce = 'true'
         }
 
+        // Hits left wall
         if (fly.x < 0) {
             fly.bounce = 'false'
         }
 
+        // Moves to the right
         if (fly.bounce === 'false') {
             fly.x += fly.speed;
         }
 
+        // Moves to the left
         if (fly.bounce === 'true') {
             fly.x -= fly.speed;
         }
@@ -144,7 +144,7 @@ function drawFly(fly) {
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
-    // Wing 1
+    // front wing
     push();
     noStroke();
     fill("#ffffffff");
@@ -152,6 +152,9 @@ function drawFly(fly) {
     pop();
 }
 
+/**
+ * Draws the pole that the silly frog licked
+ */
 function drawPole() {
     push();
     stroke("#403f3fff");
@@ -160,7 +163,10 @@ function drawPole() {
     pop();
 }
 
-function createsnowFlake() {
+/**
+ * Creates the snowflakes with random y, x, sizes and speeds
+ */
+function createSnowFlake() {
     return {
         x: random(0, width),
         y: random(0, height),
@@ -169,6 +175,9 @@ function createsnowFlake() {
     };
 }
 
+/**
+ * Draws the snowflakes on the canvas
+ */
 function drawSnow(snowFlake) {
     push();
     noStroke();
@@ -177,17 +186,19 @@ function drawSnow(snowFlake) {
     pop();
 }
 
+/** 
+ * Moves the snowflakes and resets them when they hit the bottom
+*/
 function moveSnow(snowFlake) {
     snowFlake.y += snowFlake.speed;
     // Handle the snow going off the canvas
     if (snowFlake.y > height) {
         resetSnow(snowFlake);
     }
-
 }
 
 /**
- * Resets the fly to the left with a random y and x
+ * Resets the fly to the left with a random y
  */
 function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
@@ -198,8 +209,11 @@ function resetFly(fly) {
 
 }
 
+/**
+ * Resets the snow to the top with a random x
+ */
 function resetSnow(snowFlake) {
-    // gives new speed, size and y to the flies so that they don't stay the same when reset
+    // gives new speed, size and y to the snowflakes so that they don't stay the same when reset
     snowFlake.y = 0;
     snowFlake.x = random(0, width);
     snowFlake.size = random(1, 2);
@@ -217,15 +231,9 @@ function moveFrog() {
 
 
 /**
- * Displays the tongue (tip and line connection) and the frog (
+ * Displays the tongue and the frog 
  */
 function drawFrog() {
-    // // Draw the tongue tip
-    // push();
-    // fill("#ff0000");
-    // noStroke();
-    // ellipse(Frog.tongue.x, Frog.tongue.y, Frog.tongue.size);
-    // pop();
 
     // Draw the rest of the tongue
     push();
@@ -269,7 +277,7 @@ function checkFrogFlyOverlap() {
         const eaten = (d < Frog.body.size / 2 + fly.size / 2);
 
         if (eaten) {
-            // Removes a fly when eaten instead of resetting it
+            // Resets flies
             resetFly(fly);
             // resetFly(fly);
             score += 1;
@@ -278,22 +286,6 @@ function checkFrogFlyOverlap() {
     }
 }
 
-/**
- * This function checks to see if there are no more flies left, if true displays text
- */
-function end() {
-
-    if (flies.length === 0) {
-        push();
-        noStroke();
-        fill(255);
-        textFont(font);
-        textSize(30);
-        textAlign(CENTER, CENTER);
-        text('you ate all the flies\ncongrats\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
-        pop();
-    }
-}
 
 /**
  * Displays the score (text)
@@ -309,6 +301,9 @@ function scoreBoard() {
     pop();
 }
 
+/**
+ * Displays the backstory (text)
+ */
 function backstory() {
     push();
     noStroke();
