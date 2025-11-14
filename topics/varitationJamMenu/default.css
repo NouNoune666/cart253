@@ -1,0 +1,42 @@
+/*General website fonts*/
+@font-face {
+    font-family: nintendoFont;
+    /* set name */
+    src: url(Nintendo-DS-BIOS.ttf);
+    /* url of the font */
+}
+
+
+body {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    font-family: "nintendoFont", serif;
+    background: #0687e48e;
+    font-family: "nintendoFont", serif;
+    font-size: 40px;
+}
+
+
+#menu {
+    background: pink;
+    border: 10px solid #D55E0F;
+    border-radius: 20px;
+    background: #0687e48e;
+    font-family: "nintendoFont", serif;
+    text-align: center;
+    align-items: center;
+    max-width: 400px;
+    padding: 30px;
+}
+
+#menu a {
+    text-decoration: none;
+    color: black;
+}
+
+#menu a:hover {
+    color: white;
+}
