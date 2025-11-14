@@ -34,7 +34,7 @@ function preload() {
 
 
 /**
- * Creates canvas and flies once
+ * Creates canvas and flies once at the beginning
  */
 function setup() {
     createCanvas(500, 500);
@@ -45,7 +45,7 @@ function setup() {
 }
 
 /**
- * 
+ * This is called every frame
  */
 function draw() {
     background("#87ceeb"); // a nice blue sky
@@ -84,6 +84,15 @@ function draw() {
 function mousePressed() {
     if (Frog.tongue.state === "idle") {
         Frog.tongue.state = "outbound";
+    }
+}
+
+/**
+ * When esc is pressed, the game starts over
+ */
+function keyPressed() {
+    if (keyCode === 27) {
+        location.reload(); // this reloads the whole page, neat!
     }
 }
 
@@ -146,7 +155,6 @@ function resetFly(fly) {
     fly.y = random(17, height - 100);
     // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
     fly.speed = random(3, 7);
-
 }
 
 /**
@@ -185,7 +193,7 @@ function moveTongue() {
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (body)
+ * Displays the tongue (tip and line connection) and the frog 
  */
 function drawFrog() {
     // Draw the tongue tip

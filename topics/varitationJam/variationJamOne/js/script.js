@@ -18,7 +18,7 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 199; // The number of flies that we begin with (+1)
+const NUM_FLIES = 3; // The number of flies that we begin with (+1)
 let font; // our custom font
 
 /**
@@ -66,6 +66,15 @@ function draw() {
 function mousePressed() {
     if (Frog.tongue.state === "idle") {
         Frog.tongue.state = "outbound";
+    }
+}
+
+/**
+ * When esc is pressed, the game starts over
+ */
+function keyPressed() {
+    if (keyCode === 27) {
+        location.reload(); // this reloads the whole page, neat!
     }
 }
 
@@ -231,7 +240,7 @@ function end() {
         textFont(font);
         textSize(30);
         textAlign(CENTER, CENTER);
-        text('> you ate all the flies\n> congrats i guess\n> back button for main menu', width / 2, height / 2);
+        text('you ate all the flies\ncongrats i guess\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
         pop();
     }
 }
