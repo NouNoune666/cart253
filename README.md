@@ -9,7 +9,7 @@
 
 [Mod Jam](https://nounoune666.github.io/cart253/topics/Mod_Jam/)
 
-[Variation Jam] (https://nounoune666.github.io/cart253/topics/variationJam/variationJamMenu/)
+[Variation Jam](https://nounoune666.github.io/cart253/topics/variationJam/variationJamMenu/)
 
 
 
