@@ -3,13 +3,13 @@ const Frog = {
     // The frog's body has a position and size
     body: {
         x: 320,
-        y: 520,
+        y: 0,
         size: 150
     },
     // The frog's tongue has a position, size, speed, and state
     tongue: {
         x: undefined,
-        y: 480,
+        y: 0,
         size: 40, // Made tongue bigger so that it is easier to catch flies, until you get to the last one
         speed: 40, // I made the tongue a bit faster
         // Determines how the tongue moves each frame
@@ -29,9 +29,8 @@ let randomMean; // Our JSON
  */
 function preload() {
     font = loadFont('assets/inconsolata.otf');
-    meanFly = loadJSON("assets/data/meanFly.json");
+    meanFly = loadJSON("assets/Data/meanFly.json");
 }
-
 
 /**
  * Creates canvas and flies once at the beginning
@@ -67,7 +66,6 @@ function draw() {
     else {
         checkTongueFlyOverlapMean();
     }
-
     end(); // Constantly checks to see if there is zero flies left
     score(); // Counts number of flies eaten
 
@@ -102,9 +100,9 @@ function keyPressed() {
 function createFly() {
     return {
         x: random(-500, 0), // Stars very off screen more more natural flying movements
-        y: random(17, height - 100),
+        y: random(120, height),
         size: random(8, 17),
-        speed: random(3, 7),
+        speed: random(5, 7),
     };
 }
 
@@ -152,9 +150,9 @@ function drawFly(fly) {
 function resetFly(fly) {
     // gives new speed, size and y to the flies so that they don't stay the same when reset
     fly.x = random(-3, 0);
-    fly.y = random(17, height - 100);
+    fly.y = random(120, height);
     // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
-    fly.speed = random(3, 7);
+    fly.speed = random(5, 7);
 }
 
 /**
@@ -170,23 +168,24 @@ function moveFrog() {
 function moveTongue() {
     // Tongue matches the frog's x
     Frog.tongue.x = Frog.body.x;
+
     // If the tongue is idle, it doesn't do anything
     if (Frog.tongue.state === "idle") {
         // Does nothing
     }
-    // If the tongue is outbound, it moves up
+    // If the tongue is outbound, it moves down
     else if (Frog.tongue.state === "outbound") {
-        Frog.tongue.y += -Frog.tongue.speed;
+        Frog.tongue.y += Frog.tongue.speed;
         // The tongue bounces back if it hits the top
-        if (Frog.tongue.y <= 0) {
+        if (Frog.tongue.y >= 500) {
             Frog.tongue.state = "inbound";
         }
     }
-    // If the tongue is inbound, it moves down
+    // If the tongue is inbound, it moves up
     else if (Frog.tongue.state === "inbound") {
-        Frog.tongue.y += Frog.tongue.speed;
+        Frog.tongue.y -= Frog.tongue.speed;
         // The tongue stops if it hits the bottom
-        if (Frog.tongue.y >= height) {
+        if (Frog.tongue.y <= 0) {
             Frog.tongue.state = "idle";
         }
     }
@@ -221,8 +220,8 @@ function drawFrog() {
     push();
     fill("#000000ff");
     noStroke();
-    ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
-    ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
+    ellipse(Frog.body.x + 75, Frog.body.y + 20, Frog.body.size - 30);
+    ellipse(Frog.body.x - 75, Frog.body.y + 20, Frog.body.size - 30);
     pop();
 }
 
@@ -301,7 +300,7 @@ function score() {
     textFont(font);
     textSize(30);
     textAlign(LEFT);
-    text('number of flies left: ' + flies.length, 10, 30);
+    text('number of flies left: ' + flies.length, 10, height - 30);
     pop();
 }
 
