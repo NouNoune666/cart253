@@ -10,7 +10,7 @@ const Frog = {
     tongue: {
         x: undefined,
         y: 0,
-        size: 40, // Made tongue bigger so that it is easier to catch flies, until you get to the last one
+        size: 30, // Made tongue bigger so that it is easier to catch flies, until you get to the last one...
         speed: 40, // I made the tongue a bit faster
         // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
@@ -18,11 +18,13 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 200; // The number of flies that we begin with 
+const NUM_FLIES = 5; // The number of flies that we begin with 
 let font; // our custom font
 let oneLessLonelyFly = false; // this is only true when there is one fly left
 let showMeanText = false; // Will be activated later on when oneLessLonelyFly is tru
 let randomMean; // Our JSON
+let bgStartColor = undefined; // Our background's start color
+let bgEndColor = undefined; // Our background's end color
 
 /**
  * Preloads font and JSON file
@@ -37,17 +39,29 @@ function preload() {
  */
 function setup() {
     createCanvas(500, 500);
-    flies.push(createFly());
+
     for (let i = 0; i < NUM_FLIES; i++) {
         flies.push(createFly());
     }
+
+    bgStartColor = color(135, 206, 235); // sky blue
+    bgEndColor = color(255, 0, 0); // red
 }
 
 /**
  * This is called every frame
  */
 function draw() {
-    background("#87ceeb"); // a nice blue sky
+
+    // if there is more than one fly left, calls the regular checkTongueFlyOverlap, if not calls the mean one
+    if (oneLessLonelyFly === false) {
+        checkTongueFlyOverlap();
+        background(bgStartColor); // a nice blue sky
+    }
+    else {
+        checkTongueFlyOverlapMean();
+        background(bgEndColor); // a scary red screen
+    }
 
     // a loop that goes through the each fly in the flies array to draw and move them
     for (const fly of flies) {
@@ -58,14 +72,6 @@ function draw() {
     drawFrog(); // Draws the frogs
     moveFrog();  // Moves the frogs
     moveTongue(); // Moves the tongue
-
-    // if there is more than one fly left, calls the regular checkTongueFlyOverlap, if not calls the mean one
-    if (oneLessLonelyFly === false) {
-        checkTongueFlyOverlap();
-    }
-    else {
-        checkTongueFlyOverlapMean();
-    }
     end(); // Constantly checks to see if there is zero flies left
     score(); // Counts number of flies eaten
 
@@ -195,19 +201,41 @@ function moveTongue() {
  * Displays the tongue (tip and line connection) and the frog 
  */
 function drawFrog() {
-    // Draw the tongue tip
-    push();
-    fill("#ff0000");
-    noStroke();
-    ellipse(Frog.tongue.x, Frog.tongue.y, Frog.tongue.size);
-    pop();
 
-    // Draw the rest of the tongue
-    push();
-    stroke("#ff0000");
-    strokeWeight(Frog.tongue.size);
-    line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
-    pop();
+
+    if (oneLessLonelyFly) {
+        // Draw the tongue tip
+        push();
+        fill("#3d40c5ff");
+        noStroke();
+        ellipse(Frog.tongue.x, Frog.tongue.y, Frog.tongue.size);
+        pop();
+
+        // Draw the rest of the tongue
+        push();
+        stroke("#3d40c5ff");
+        strokeWeight(Frog.tongue.size);
+        line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
+        pop();
+    }
+
+    if (!oneLessLonelyFly) {
+        // Draw the tongue tip
+        push();
+        fill("#ff0000");
+        noStroke();
+        ellipse(Frog.tongue.x, Frog.tongue.y, Frog.tongue.size);
+        pop();
+
+        // Draw the rest of the tongue
+        push();
+        stroke("#ff0000");
+        strokeWeight(Frog.tongue.size);
+        line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
+        pop();
+    }
+
+
 
     // Draw the frog's body
     push();
