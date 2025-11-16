@@ -1,5 +1,5 @@
 // An object for our frog 
-const Frog = {
+const frog = {
     // The frog's body has a position and size
     body: {
         x: 320,
@@ -17,7 +17,7 @@ const Frog = {
 let snow = []; // an array that holds many snowflakes
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 25; // The number of flies 
-const NUM_snowFlakes = 200; // The number of snowflakes
+const NUM_SNOWFLAKES = 200; // The number of snowflakes
 let font; // our custom font
 let score = 0; // number of flies eaten at the beginning
 
@@ -38,7 +38,7 @@ function setup() {
         flies.push(createFly());
     }
 
-    for (let i = 0; i < NUM_snowFlakes; i++) {
+    for (let i = 0; i < NUM_SNOWFLAKES; i++) {
         snow.push(createSnowFlake());
         console.log(snow.length);
     }
@@ -89,7 +89,7 @@ function createFly() {
         y: random(0, height),
         size: random(8, 17),
         speed: random(0.01, 0.4),
-        bounce: 'false', // when this is changed, the flies movement change
+        bounce: 'false', // when this is changed, the flies' movement change
     };
 }
 
@@ -119,36 +119,29 @@ function moveFly(fly) {
             fly.x -= fly.speed;
         }
     }
-
-
-    // Move the fly
-    // Handle the fly going off the canvas
-    // if (fly.x < 0) {
-    //     // resetFly(fly);
-    // }
 }
 
 /**
  * Draws the fly as a black circle and two white wings
  */
 function drawFly(fly) {
-    // back wing
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
-    pop();
     // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
-    // front wing
+    // first wing
     push();
     noStroke();
     fill("#ffffffff");
-    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    ellipse(fly.x, fly.y - fly.size / 2, fly.size / 2, fly.size);
+    pop();
+    // second wing
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x, fly.y + fly.size / 2, fly.size / 2, fly.size);
     pop();
 }
 
@@ -213,7 +206,7 @@ function resetFly(fly) {
  * Resets the snow to the top with a random x
  */
 function resetSnow(snowFlake) {
-    // gives new speed, size and y to the snowflakes so that they don't stay the same when reset
+    // gives new speed, size, x andy to the snowflakes so that they don't stay the same when reset
     snowFlake.y = 0;
     snowFlake.x = random(0, width);
     snowFlake.size = random(1, 2);
@@ -225,8 +218,8 @@ function resetSnow(snowFlake) {
  * Moves the frog to the mouse X and Y position
  */
 function moveFrog() {
-    Frog.body.x = mouseX;
-    Frog.body.y = mouseY;
+    frog.body.x = mouseX;
+    frog.body.y = mouseY;
 }
 
 
@@ -235,34 +228,34 @@ function moveFrog() {
  */
 function drawFrog() {
 
-    // Draw the rest of the tongue
+    // Draw the tongue
     push();
     stroke("#ff0000");
-    strokeWeight(Frog.tongue.size);
-    line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
+    strokeWeight(frog.tongue.size);
+    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
     pop();
 
     // Draw the frog's body
     push();
     fill("#00ff00");
     noStroke();
-    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
+    ellipse(frog.body.x, frog.body.y, frog.body.size);
     pop();
 
     // Draw the frog's eyes
     push();
     fill("#000000ff");
     noStroke();
-    ellipse(Frog.body.x + 25, Frog.body.y - 15, Frog.body.size / 2);
-    ellipse(Frog.body.x - 25, Frog.body.y - 15, Frog.body.size / 2);
+    ellipse(frog.body.x + 25, frog.body.y - 15, frog.body.size / 2);
+    ellipse(frog.body.x - 25, frog.body.y - 15, frog.body.size / 2);
     pop();
 
     // Draw the frog's feet
     push();
     fill("#00ff00");
     noStroke();
-    ellipse(Frog.body.x + 25, Frog.body.y + 30, Frog.body.size / 2, Frog.body.size / 3.5);
-    ellipse(Frog.body.x - 25, Frog.body.y + 30, Frog.body.size / 2, Frog.body.size / 3.5);
+    ellipse(frog.body.x + 25, frog.body.y + 30, frog.body.size / 2, frog.body.size / 3.5);
+    ellipse(frog.body.x - 25, frog.body.y + 30, frog.body.size / 2, frog.body.size / 3.5);
     pop();
 }
 
@@ -271,10 +264,10 @@ function drawFrog() {
  */
 function checkFrogFlyOverlap() {
     for (const fly of flies) { // for each fly inside the flies array, check this
-        // Get distance from tongue to fly
-        const d = dist(Frog.body.x, Frog.body.y, fly.x, fly.y);
+        // Get distance from frog to fly
+        const d = dist(frog.body.x, frog.body.y, fly.x, fly.y);
         // Check if it's an overlap
-        const eaten = (d < Frog.body.size / 2 + fly.size / 2);
+        const eaten = (d < frog.body.size / 2 + fly.size / 2);
 
         if (eaten) {
             // Resets flies

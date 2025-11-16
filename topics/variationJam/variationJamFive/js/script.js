@@ -13,7 +13,7 @@ const frog = {
         speed: 50, // I made the tongue faster
         // Determines how the tongue moves each frame
         size: 30,
-        state: "idle" // State can be: idle, outbound, inbound
+        state: "idle", // State can be: idle, outbound, inbound
     }
 };
 
@@ -61,10 +61,7 @@ function draw() {
     if (gameIsGaming) {
         checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
     }
-    console.log(gameIsGaming);
     end()
-
-
 }
 
 /**
@@ -103,6 +100,10 @@ function moveFly(fly) {
     // Move the fly 
     fly.x += random(-buzziness, buzziness);
     fly.y += random(-buzziness, buzziness);
+
+    // Constrains the flies withing canvas boundaries
+    fly.x = constrain(fly.x, 0, width);
+    fly.y = constrain(fly.y, 0, height);
 }
 
 /**
@@ -230,25 +231,9 @@ function end() {
         textFont(font);
         textSize(30);
         textAlign(CENTER, CENTER);
-        text('The flies go too angry\nand to big to eat :(\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
+        text('The flies grew too angry\nand too big to eat :(\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
         pop();
     }
 }
-
-
-/**
- * Displays the score (text)
- */
-function DisplayScore() {
-    push();
-    noStroke();
-    fill(255);
-    textFont(font);
-    textSize(30);
-    textAlign(LEFT);
-    text('number of flies left: ' + flies.length, 10, 30);
-    pop();
-}
-
 
 
