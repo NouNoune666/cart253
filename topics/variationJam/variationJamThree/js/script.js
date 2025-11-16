@@ -18,7 +18,7 @@ const Frog = {
 };
 
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 5; // The number of flies that we begin with 
+const NUM_FLIES = 50; // The number of flies that we begin with 
 let font; // our custom font
 let oneLessLonelyFly = false; // this is only true when there is one fly left
 let showMeanText = false; // Will be activated later on when oneLessLonelyFly is tru
@@ -107,7 +107,7 @@ function createFly() {
     return {
         x: random(-500, 0), // Stars very off screen more more natural flying movements
         y: random(120, height),
-        size: random(8, 17),
+        size: random(13, 19),
         speed: random(5, 7),
     };
 }

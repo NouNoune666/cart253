@@ -25,6 +25,7 @@ let score = 0; // score starts at zero and goes up
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 200; // The number of flies that we begin with 
 let font; // our custom font
+let music;
 
 /**
  * Preloads font 
@@ -43,6 +44,7 @@ function setup() {
     }
     bgStartColor = color(224, 114, 212); // pretty pink
     bgEndColor = color(79, 84, 10);       // vomit green
+
 
 }
 
