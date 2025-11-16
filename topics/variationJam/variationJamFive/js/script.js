@@ -1,5 +1,5 @@
-// An object for our () frog
-const Frog = {
+// An object for our frog
+const frog = {
     // The frog's body has a position and size
     body: {
         x: 320,
@@ -10,22 +10,28 @@ const Frog = {
     tongue: {
         x: undefined,
         y: 480,
-        size: 20,
-        speed: 40, // I made the tongue faster
+        speed: 50, // I made the tongue faster
         // Determines how the tongue moves each frame
+        size: 30,
         state: "idle" // State can be: idle, outbound, inbound
     }
 };
 
+let score = 0; // score starts at zero and goes up
 let flies = []; // an array that holds many flies
-const NUM_FLIES = 199; // The number of flies that we begin with (+1)
+const NUM_FLIES = 160; // The number of flies that we begin with 
 let font; // our custom font
+let buzziness = 1;
+let gameIsGaming = true;
+let flyImage = undefined; // Our fly as an image
+
 
 /**
  * Preloads font 
  */
 function preload() {
     font = loadFont('assets/inconsolata.otf');
+    flyImage = loadImage('assets/images/fly.png');
 }
 
 /**
@@ -33,8 +39,7 @@ function preload() {
  */
 function setup() {
     createCanvas(500, 500);
-    flies.push(createFly());
-    for (let i = 0; i < NUM_FLIES; i++) { // happens  time
+    for (let i = 0; i < NUM_FLIES; i++) {
         flies.push(createFly());
     }
 }
@@ -43,38 +48,39 @@ function setup() {
  * This is called every frame
  */
 function draw() {
-    background("#87ceeb"); // a nice blue sky
+    background("#87ceeb"); // changing background color
 
     // a loop that goes through the each fly in the flies array to draw and move them
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
-
-    drawFrog(); // Draws the frogs
-    moveFrog();  // Moves the frogs
+    drawfrog(); // Draws the frogs
+    movefrog();  // Moves the frogs
     moveTongue(); // Moves the tongue
-    checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
-    end(); // Checks to see if there is zero flies left
-    score(); // Counts number of flies eaten
-
-}
-
-/**
- * This is called whenever the mouse is pressed. The tongue goes out and in depending on the state.
- */
-function mousePressed() {
-    if (Frog.tongue.state === "idle") {
-        Frog.tongue.state = "outbound";
+    if (gameIsGaming) {
+        checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
     }
+    console.log(gameIsGaming);
+    end()
+
+
 }
 
 /**
- * When esc is pressed, the game starts over
+ * This is called whenever a certain key is pressed.
  */
 function keyPressed() {
+    // esc
     if (keyCode === 27) {
         location.reload(); // this reloads the whole page, neat!
+    }
+
+    // spacebar, 
+    if (keyCode === 32) {
+        if (frog.tongue.state === "idle") {
+            frog.tongue.state = "outbound"; // The tongue goes out and in depending on the state.
+        }
     }
 }
 
@@ -83,10 +89,9 @@ function keyPressed() {
  */
 function createFly() {
     return {
-        x: random(-500, 0), // Stars very off screen more more natural flying movements
-        y: random(17, height - 100),
-        size: random(8, 17),
-        speed: random(3, 7),
+        x: random(0, width), // Starts far off-screen so the flies enter the canvas naturally
+        y: random(0, height - 50),
+        size: random(9, 18),
     };
 }
 
@@ -95,12 +100,9 @@ function createFly() {
  * Resets the fly if it gets all the way to the right.
  */
 function moveFly(fly) {
-    // Move the fly
-    fly.x += fly.speed;
-    // Handle the fly going off the canvas
-    if (fly.x > width) {
-        resetFly(fly);
-    }
+    // Move the fly 
+    fly.x += random(-buzziness, buzziness);
+    fly.y += random(-buzziness, buzziness);
 }
 
 /**
@@ -109,41 +111,16 @@ function moveFly(fly) {
 function drawFly(fly) {
     // back wing
     push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
-    pop();
-    // The body
-    push();
-    noStroke();
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
-    pop();
-    // Wing 1
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    imageMode(CENTER);
+    image(flyImage, fly.x, fly.y, fly.size, fly.size)
     pop();
 }
 
 /**
- * Resets the fly to the left with a random y and x
+ * Moves the frog to match the mouse's X position
  */
-function resetFly(fly) {
-    // gives new speed, size and y to the flies so that they don't stay the same when reset
-    fly.x = random(-3, 0);
-    fly.y = random(17, height - 100);
-    // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
-    fly.speed = random(3, 7);
-
-}
-
-/**
- * Moves the frog to the mouse X position
- */
-function moveFrog() {
-    Frog.body.x = mouseX;
+function movefrog() {
+    frog.body.x = mouseX;
 }
 
 /**
@@ -151,60 +128,62 @@ function moveFrog() {
  */
 function moveTongue() {
     // Tongue matches the frog's x
-    Frog.tongue.x = Frog.body.x;
+    frog.tongue.x = frog.body.x;
     // If the tongue is idle, it doesn't do anything
-    if (Frog.tongue.state === "idle") {
+    if (frog.tongue.state === "idle") {
         // Does nothing
     }
     // If the tongue is outbound, it moves up
-    else if (Frog.tongue.state === "outbound") {
-        Frog.tongue.y += -Frog.tongue.speed;
+    else if (frog.tongue.state === "outbound") {
+        frog.tongue.y += -frog.tongue.speed;
         // The tongue bounces back if it hits the top
-        if (Frog.tongue.y <= 0) {
-            Frog.tongue.state = "inbound";
+        if (frog.tongue.y <= 0) {
+            frog.tongue.state = "inbound";
         }
     }
     // If the tongue is inbound, it moves down
-    else if (Frog.tongue.state === "inbound") {
-        Frog.tongue.y += Frog.tongue.speed;
+    else if (frog.tongue.state === "inbound") {
+        frog.tongue.y += frog.tongue.speed;
         // The tongue stops if it hits the bottom
-        if (Frog.tongue.y >= height) {
-            Frog.tongue.state = "idle";
+        if (frog.tongue.y >= height) {
+            frog.tongue.state = "idle";
         }
     }
 }
 
 /**
- * Displays the tongue (tip and line connection) and the frog (
+ * Displays the tongue (tip and line connection) and the frog 
  */
-function drawFrog() {
+function drawfrog() {
+
     // Draw the tongue tip
     push();
     fill("#ff0000");
     noStroke();
-    ellipse(Frog.tongue.x, Frog.tongue.y, Frog.tongue.size);
+    ellipse(frog.tongue.x, frog.tongue.y, frog.tongue.size);
     pop();
 
     // Draw the rest of the tongue
     push();
     stroke("#ff0000");
-    strokeWeight(Frog.tongue.size);
-    line(Frog.tongue.x, Frog.tongue.y, Frog.body.x, Frog.body.y);
+    strokeWeight(frog.tongue.size);
+    line(frog.tongue.x, frog.tongue.y, frog.body.x, frog.body.y);
     pop();
 
     // Draw the frog's body
     push();
     fill("#00ff00");
-    noStroke();
-    ellipse(Frog.body.x, Frog.body.y, Frog.body.size);
+    strokeWeight(10);
+    stroke('green');
+    ellipse(frog.body.x, frog.body.y, frog.body.size);
     pop();
 
     // Draw the frog's eyes
     push();
     fill("#000000ff");
     noStroke();
-    ellipse(Frog.body.x + 75, Frog.body.y - 20, Frog.body.size - 30);
-    ellipse(Frog.body.x - 75, Frog.body.y - 20, Frog.body.size - 30);
+    ellipse(frog.body.x + 75, frog.body.y - 20, frog.body.size - 30);
+    ellipse(frog.body.x - 75, frog.body.y - 20, frog.body.size - 30);
     pop();
 }
 
@@ -212,50 +191,62 @@ function drawFrog() {
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
-    for (const fly of flies) { // for each fly inside the flies array, check this
+    for (const fly of flies) { // for each fly inside the flies array, check for overlap
         // Get distance from tongue to fly
-        const d = dist(Frog.tongue.x, Frog.tongue.y, fly.x, fly.y);
+        const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
         // Check if it's an overlap
-        const eaten = (d < Frog.tongue.size / 2 + fly.size / 2);
+        const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
 
         if (eaten) {
             // Removes a fly when eaten instead of resetting it
             const flyIndex = flies.indexOf(fly)
             flies.splice(flyIndex, 1);
             // Bring back the tongue
-            Frog.tongue.state = "inbound";
+            frog.tongue.state = "inbound";
+            buzziness += 0.2;
+            score += 1;
+
+            for (const remainingFlies of flies) { //different variable name because we are already in a loop
+                remainingFlies.size += 2;
+                // console.log(remainingFlies.size);
+                if (remainingFlies.size > 130) {
+                    gameIsGaming = false;
+                }
+            }
         }
+        console.log(fly.size)
     }
 }
 
+
 /**
- * This function checks to see if there are no more flies left, if true displays text
+ * Checks if no flies remain; if so, displays the end message
  */
 function end() {
-    console.log(flies.length)
-    if (flies.length === 0) {
+    if (!gameIsGaming) {
         push();
         noStroke();
         fill(255);
         textFont(font);
         textSize(30);
         textAlign(CENTER, CENTER);
-        text('you ate all the flies\ncongrats\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
+        text('The flies go too angry\nand to big to eat :(\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
         pop();
     }
 }
 
+
 /**
  * Displays the score (text)
  */
-function score() {
+function DisplayScore() {
     push();
     noStroke();
     fill(255);
     textFont(font);
     textSize(30);
     textAlign(LEFT);
-    text('number of flies left ' + flies.length, 10, 30);
+    text('number of flies left: ' + flies.length, 10, 30);
     pop();
 }
 
