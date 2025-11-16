@@ -12,14 +12,13 @@ const frog = {
         y: 480,
         size: 20,
         speed: 40, // I made the tongue faster
-        // Determines how the tongue moves each frame
         state: "idle" // State can be: idle, outbound, inbound
     }
 };
 
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 100; // The number of flies that we begin with (+1)
-let seconds = 10; // Countdown will start at 5 seconds
+let seconds = 10; // Countdown will start at 10 seconds
 let font; // Our font
 let gameIsGaming = true; // This determines when we are in game mode (the opposite of game mode is end mode)
 let score = 0; // begins at zero and will go up
@@ -37,7 +36,7 @@ function preload() {
 function setup() {
     createCanvas(500, 500);
     flies.push(createFly());
-    for (let i = 0; i < NUM_FLIES; i++) { // happens  time
+    for (let i = 0; i < NUM_FLIES; i++) { // happens at the beginning
         flies.push(createFly());
     }
 }
@@ -55,18 +54,17 @@ function draw() {
         drawTongue(); //draws tongue
     }
 
-    // a loop that goes through the each fly in the flies array to draw and move them
+    // a loop that goes through each fly in the flies array to draw and move them
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
 
-    drawfrog(); // Draws the frogs
-    movefrog();  // Moves the frogs
+    drawFrog(); // Draws the frog
+    moveFrog();  // Moves the frog
     secondsLeft(); // this acts as a countdown
     timeGoesBy(); // handles the endings
     tongueControl(); // tongue will be controlled by arrows
-
 }
 
 /**
@@ -82,7 +80,7 @@ function tongueControl() {
 }
 
 /**
- * When esc is pressed, the game starts over
+ * When ESC is pressed, the game starts over
  */
 function keyPressed() {
     if (keyCode === 27) {
@@ -119,23 +117,23 @@ function moveFly(fly) {
  * Draws the fly as a black circle and two white wings
  */
 function drawFly(fly) {
-    // back wing
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
-    pop();
     // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
-    // Wing 1
+    // first wing
     push();
     noStroke();
     fill("#ffffffff");
-    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    ellipse(fly.x, fly.y - fly.size / 2, fly.size / 2, fly.size);
+    pop();
+    // second wing
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x, fly.y + fly.size / 2, fly.size / 2, fly.size);
     pop();
 }
 
@@ -153,7 +151,7 @@ function resetFly(fly) {
 /**
  * Moves the frog to the mouse X position
  */
-function movefrog() {
+function moveFrog() {
     frog.body.x = mouseX;
 }
 
@@ -188,8 +186,7 @@ function moveTongue() {
 /**
  * Draws the frog
  */
-function drawfrog() {
-
+function drawFrog() {
     // Draw the frog's body
     push();
     fill("#00ff00");
@@ -207,7 +204,7 @@ function drawfrog() {
 }
 
 /**
- * Moved the tongue out of draw frog so that it dissapears at the end 
+ * Moved the tongue out of draw frog so that it disapears at the end 
  */
 function drawTongue() {
     // Draw the tongue tip
@@ -282,12 +279,12 @@ function timeGoesBy() {
         pop();
     }
 
-    // Text displayed when countdown is over
+    // Text displayed when countdown is over (- or more than one fly caught)
     if (seconds <= 0 && score != 1) {
         end();
         gameIsGaming = false
     }
-    // Text displayed when countdown is over (1 fly caught)
+    // Text displayed when countdown is over + 1 fly has been caught
     if (seconds <= 0 && score === 1) {
         endOneFly();
         gameIsGaming = false;
@@ -308,19 +305,10 @@ function end() {
     pop();
 }
 
+
 /**
  * Displays end of game text (one fly caught)
  */
-function end() {
-    push();
-    noStroke();
-    fill(255);
-    textFont(font);
-    textSize(30);
-    textAlign(CENTER, CENTER);
-    text('you ate ' + score + ' flies\nand your tongue was cut off :(\n\nesc to play again\nback arrow for the menu', width / 2, height / 2);
-    pop();
-}
 function endOneFly() {
     push();
     noStroke();

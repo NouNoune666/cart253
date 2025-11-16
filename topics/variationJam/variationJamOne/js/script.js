@@ -25,7 +25,6 @@ let score = 0; // score starts at zero and goes up
 let flies = []; // an array that holds many flies
 const NUM_FLIES = 200; // The number of flies that we begin with 
 let font; // our custom font
-let music;
 
 /**
  * Preloads font 
@@ -44,8 +43,6 @@ function setup() {
     }
     bgStartColor = color(224, 114, 212); // pretty pink
     bgEndColor = color(79, 84, 10);       // vomit green
-
-
 }
 
 /**
@@ -56,19 +53,18 @@ function draw() {
     let bgColor = lerpColor(bgStartColor, bgEndColor, progress)
     background(bgColor); // changing background color
 
-    // a loop that goes through the each fly in the flies array to draw and move them
+    // a loop that goes through each fly in the flies array to draw and move them
     for (const fly of flies) {
         moveFly(fly);
         drawFly(fly);
     }
 
-    drawFrog(); // Draws the frogs
-    moveFrog();  // Moves the frogs
+    drawFrog(); // Draws the frog
+    moveFrog();  // Moves the frog
     moveTongue(); // Moves the tongue
     checkTongueFlyOverlap(); // Checks the overlap between frog and tongue
-    end(); // Checks to see if there is zero flies left
+    end(); // Checks to see if there are zero flies left
     DisplayScore(); // Counts number of flies eaten
-
 }
 
 /**
@@ -89,7 +85,7 @@ function keyPressed() {
 }
 
 /**
- * Creates the flies with random y, sizes and speeds
+ * Creates the flies with random y values, sizes and speeds
  */
 function createFly() {
     return {
@@ -117,28 +113,29 @@ function moveFly(fly) {
  * Draws the fly as a black circle and two white wings
  */
 function drawFly(fly) {
-    // back wing
-    push();
-    noStroke();
-    fill("#ffffffff");
-    ellipse(fly.x - 3, fly.y - 5, fly.size / 2);
-    pop();
+
     // The body
     push();
     noStroke();
     fill("#000000");
     ellipse(fly.x, fly.y, fly.size);
     pop();
-    // Wing 1
+    // first wing
     push();
     noStroke();
     fill("#ffffffff");
-    ellipse(fly.x, fly.y - 4, fly.size / 2);
+    ellipse(fly.x, fly.y - fly.size / 2, fly.size / 2, fly.size);
+    pop();
+    // second wing
+    push();
+    noStroke();
+    fill("#ffffffff");
+    ellipse(fly.x, fly.y + fly.size / 2, fly.size / 2, fly.size);
     pop();
 }
 
 /**
- * Resets the fly to the left with a random y and x
+ * Resets the fly to the left with a random y and a randon x
  */
 function resetFly(fly) {
     // Gives the fly a new speed and y-position so it doesn't look identical when reset
@@ -146,7 +143,6 @@ function resetFly(fly) {
     fly.y = random(17, height - 100);
     // fly.size = random(7, 16); // deleted this so that the size stays constant and it looks like the same flies coming back
     fly.speed = random(3, 7);
-
 }
 
 /**
@@ -190,8 +186,8 @@ function moveTongue() {
 function drawFrog() {
     frogStartColor = color("#00ff00"); // Our frog's healthy color
     frogEndColor = color("#7b9d7bff"); // Our frog's sick color
-    let progress = map(score, 0, NUM_FLIES, 0, 1) // from 0 to 200 = from 0 to 1
-    let frogColor = lerpColor(frogStartColor, frogEndColor, progress)
+    let progress = map(score, 0, NUM_FLIES, 0, 1) // maps from score to progress
+    let frogColor = lerpColor(frogStartColor, frogEndColor, progress) // The smooth transition from the frog's two colors
 
     // Draw the tongue tip
     push();

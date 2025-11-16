@@ -1,11 +1,9 @@
-/*General website fonts*/
 @font-face {
     font-family: nintendoFont;
     /* set name */
     src: url(Nintendo-DS-BIOS.ttf);
     /* url of the font */
 }
-
 
 body {
     margin: 0 auto;
@@ -28,7 +26,6 @@ h2 {
     margin-top: 0px;
 
 }
-
 
 #menu {
     background: pink;
