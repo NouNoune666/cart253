@@ -9,7 +9,6 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    height: 100vh;
     align-items: center;
     font-family: "nintendoFont", serif;
     background: #0687e48e;
@@ -17,12 +16,12 @@ body {
 }
 
 h1 {
-    font-size: 200px;
+    font-size: 80px;
     margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 150px;
+    font-size: 70px;
     margin-top: 0px;
 
 }
